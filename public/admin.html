@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>题库管理后台</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft YaHei",sans-serif;background:#f0f5f4;color:#333;line-height:1.6}
+.container{max-width:1100px;margin:0 auto;padding:15px}
+.login{max-width:380px;margin:80px auto;background:#fff;padding:35px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.login h2{text-align:center;color:#0F766E;margin-bottom:20px}
+.login input{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin-bottom:15px}
+.login button{width:100%;padding:12px;background:#0F766E;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer}
+.topbar{background:#fff;padding:15px 20px;border-radius:10px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.topbar h1{font-size:18px;color:#0F766E}
+.btn{padding:8px 15px;border:none;border-radius:6px;cursor:pointer;font-size:14px}
+.btn-primary{background:#0F766E;color:#fff}
+.btn-secondary{background:#e5e7eb;color:#333}
+.btn-danger{background:#ef4444;color:#fff}
+.btn-sm{padding:4px 10px;font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:15px}
+.stat{background:#fff;padding:15px;border-radius:10px;text-align:center}
+.stat .num{font-size:24px;font-weight:bold;color:#0F766E}
+.stat .label{font-size:13px;color:#666;margin-top:4px}
+.toolbar{background:#fff;padding:12px;border-radius:10px;margin-bottom:15px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.toolbar select,.toolbar input{padding:8px 10px;border:1px solid #ddd;border-radius:6px;font-size:14px}
+.list{background:#fff;border-radius:10px;overflow:hidden}
+.item{padding:14px 18px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:flex-start}
+.item:hover{background:#f9fafb}
+.item .info{flex:1}
+.item .tags{margin-bottom:6px}
+.tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:11px;margin-right:5px;background:#e5e7eb}
+.item .stem{font-size:14px;margin-bottom:5px}
+.item .ans{font-size:12px;color:#666}
+.item .actions{display:flex;gap:6px;margin-left:12px}
+.page{padding:15px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.page button{padding:6px 11px;border:1px solid #ddd;background:#fff;border-radius:5px;cursor:pointer}
+.page button.active{background:#0F766E;color:#fff;border-color:#0F766E}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:15px}
+.modal.active{display:flex}
+.modal-box{background:#fff;border-radius:12px;width:100%;max-width:650px;max-height:90vh;overflow-y:auto}
+.modal-head{padding:16px 20px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{font-size:17px}
+.modal-close{width:30px;height:30px;border:none;background:none;font-size:20px;cursor:pointer;color:#666}
+.modal-body{padding:20px}
+.modal-foot{padding:14px 20px;border-top:1px solid #eee;display:flex;justify-content:flex-end;gap:10px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:13px;font-weight:500;margin-bottom:5px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:9px 11px;border:1px solid #ddd;border-radius:6px;font-size:14px}
+.form-group textarea{min-height:70px;resize:vertical}
+.opt-row{display:flex;gap:8px;margin-bottom:7px;align-items:center}
+.opt-row .lbl{width:30px;text-align:center;font-weight:bold}
+.opt-row input{flex:1}
+.add-opt{padding:5px 12px;background:#e5e7eb;border:none;border-radius:5px;cursor:pointer;font-size:13px}
+.toast{position:fixed;top:15px;right:15px;padding:11px 18px;border-radius:7px;color:#fff;z-index:2000}
+.toast.ok{background:#10b981}.toast.err{background:#ef4444}
+.empty{text-align:center;padding:50px 20px;color:#999}
+@media(max-width:700px){.item{flex-direction:column}.item .actions{margin-left:0;margin-top:10px}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div id="loginPage" class="login">
+<h2>题库管理后台</h2>
+<input type="password" id="pwd" placeholder="请输入管理员密码" onkeypress="if(event.key==='Enter')login()">
+<button onclick="login()">登录</button>
+</div>
+<div id="adminPage" style="display:none">
+<div class="container">
+<div class="topbar">
+<h1>题库管理后台</h1>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn btn-secondary" onclick="exportData()">导出题库</button>
+<button class="btn btn-secondary" onclick="showImport()">批量导入</button>
+<button class="btn btn-primary" onclick="showAdd()">添加题目</button>
+<button class="btn btn-secondary" onclick="logout()">退出</button>
+</div>
+</div>
+<div class="stats" id="stats"></div>
+<div class="toolbar">
+<select id="fModule" onchange="loadList()">
+<option value="">全部模块</option><option value="理论">理论</option><option value="实操">实操</option>
+</select>
+<select id="fType" onchange="loadList()">
+<option value="">全部题型</option><option value="单选题">单选题</option><option value="多选题">多选题</option><option value="判断题">判断题</option>
+</select>
+<input type="text" id="fSearch" placeholder="搜索题目..." oninput="debounce()">
+</div>
+<div class="list" id="list"></div>
+<div class="page" id="page"></div>
+</div>
+</div>
+<div class="modal" id="qModal">
+<div class="modal-box">
+<div class="modal-head"><h3 id="mTitle">添加题目</h3><button class="modal-close" onclick="closeM('qModal')">&times;</button></div>
+<div class="modal-body">
+<input type="hidden" id="eId">
+<div class="form-group"><label>题目内容 *</label><textarea id="eStem"></textarea></div>
+<div class="form-group"><label>模块</label><select id="eModule"><option value="理论">理论</option><option value="实操">实操</option></select></div>
+<div class="form-group"><label>章节</label><input type="text" id="eSection" placeholder="如：第一部分"></div>
+<div class="form-group"><label>题型</label><select id="eType" onchange="typeChange()"><option value="单选题">单选题</option><option value="多选题">多选题</option><option value="判断题">判断题</option></select></div>
+<div class="form-group"><label>选项 *</label><div id="optList"></div><button class="add-opt" onclick="addOpt()">+ 添加选项</button></div>
+<div class="form-group"><label>正确答案 *</label><input type="text" id="eAnswer" placeholder="单选填A，多选填A,B,C，判断填A或B"></div>
+<div class="form-group"><label>解析</label><textarea id="eExp"></textarea></div>
+</div>
+<div class="modal-foot">
+<button class="btn btn-secondary" onclick="closeM('qModal')">取消</button>
+<button class="btn btn-primary" onclick="saveQ()">保存</button>
+</div>
+</div>
+</div>
+<div class="modal" id="iModal">
+<div class="modal-box">
+<div class="modal-head"><h3>批量导入</h3><button class="modal-close" onclick="closeM('iModal')">&times;</button></div>
+<div class="modal-body">
+<p style="margin-bottom:12px;color:#666;font-size:13px">粘贴JSON格式题目数组，或选择JSON文件</p>
+<div class="form-group"><textarea id="iText" style="min-height:180px" placeholder='[{"stem":"题目","options":[{"label":"A","content":"选项A"}],"answer":"A","module":"理论","type":"单选题"}]'></textarea></div>
+<div class="form-group"><label>或选择文件</label><input type="file" id="iFile" accept=".json" onchange="readFile()"></div>
+</div>
+<div class="modal-foot">
+<button class="btn btn-secondary" onclick="closeM('iModal')">取消</button>
+<button class="btn btn-primary" onclick="doImport()">导入</button>
+</div>
+</div>
+</div>
+<script>
+let token=localStorage.getItem('q_admin')||'',page=1,psize=20,allData=[],fData=[];
+function login(){
+fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:document.getElementById('pwd').value})})
+.then(r=>r.json()).then(d=>{
+if(d.success){token=d.token;localStorage.setItem('q_admin',token);document.getElementById('loginPage').style.display='none';document.getElementById('adminPage').style.display='block';loadStats();loadList();}
+else{toast(d.message||'登录失败','err');}
+}).catch(()=>toast('网络错误，请确认服务已启动','err'));
+}
+function logout(){token='';localStorage.removeItem('q_admin');document.getElementById('loginPage').style.display='block';document.getElementById('adminPage').style.display='none';}
+if(token){document.getElementById('loginPage').style.display='none';document.getElementById('adminPage').style.display='block';loadStats();loadList();}
+function loadStats(){
+fetch('/api/stats').then(r=>r.json()).then(d=>{
+if(d.success){let s=d.data;document.getElementById('stats').innerHTML=
+'<div class="stat"><div class="num">'+s.total+'</div><div class="label">总题数</div></div>'+
+'<div class="stat"><div class="num">'+s.theory+'</div><div class="label">理论题</div></div>'+
+'<div class="stat"><div class="num">'+s.practice+'</div><div class="label">实操题</div></div>'+
+'<div class="stat"><div class="num">'+s.single+'</div><div class="label">单选题</div></div>'+
+'<div class="stat"><div class="num">'+s.multi+'</div><div class="label">多选题</div></div>'+
+'<div class="stat"><div class="num">'+s.judge+'</div><div class="label">判断题</div></div>';
+}
+});
+}
+function loadList(){
+let m=document.getElementById('fModule').value,t=document.getElementById('fType').value,kw=document.getElementById('fSearch').value,u='/api/questions?';
+if(m)u+='module='+m+'&';if(t)u+='type='+t+'&';
+fetch(u).then(r=>r.json()).then(d=>{
+if(d.success){allData=d.data;fData=kw?allData.filter(q=>q.stem&&q.stem.includes(kw)):allData;render();}
+});
+}
+let tmr;function debounce(){clearTimeout(tmr);tmr=setTimeout(loadList,300);}
+function render(){
+let el=document.getElementById('list'),st=(page-1)*psize,pd=fData.slice(st,st+psize);
+if(!pd.length){el.innerHTML='<div class="empty">暂无题目</div>';document.getElementById('page').innerHTML='';return;}
+el.innerHTML=pd.map(q=>{
+return '<div class="item"><div class="info"><div class="tags"><span class="tag">'+q.module+'</span><span class="tag">'+q.type+'</span>'+(q.section?'<span class="tag">'+q.section+'</span>':'')+'</div>'+
+'<div class="stem">'+q.id+'. '+q.stem+'</div><div class="ans">答案：'+(Array.isArray(q.answer)?q.answer.join(','):q.answer)+'</div></div>'+
+'<div class="actions"><button class="btn btn-secondary btn-sm" onclick="editQ('+q.id+')">编辑</button><button class="btn btn-danger btn-sm" onclick="delQ('+q.id+')">删除</button></div></div>';
+}).join('');
+let tp=Math.ceil(fData.length/psize),ph='<button onclick="goPage('+(page-1)+')" '+(page==1?'disabled':'')+'>上一页</button>';
+for(let i=1;i<=tp;i++){if(i==1||i==tp||(i>=page-2&&i<=page+2))ph+='<button class="'+(i==page?'active':'')+'" onclick="goPage('+i+')">'+i+'</button>';else if(i==page-3||i==page+3)ph+='<span>...</span>';}
+ph+='<button onclick="goPage('+(page+1)+')" '+(page==tp?'disabled':'')+'>下一页</button>';
+document.getElementById('page').innerHTML=ph;
+}
+function goPage(p){let tp=Math.ceil(fData.length/psize);if(p<1||p>tp)return;page=p;render();window.scrollTo(0,0);}
+function showAdd(){
+document.getElementById('mTitle').textContent='添加题目';document.getElementById('eId').value='';
+document.getElementById('eStem').value='';document.getElementById('eModule').value='理论';document.getElementById('eSection').value='';
+document.getElementById('eType').value='单选题';document.getElementById('eAnswer').value='';document.getElementById('eExp').value='';
+initOpts([{label:'A',content:''},{label:'B',content:''},{label:'C',content:''},{label:'D',content:''}]);
+document.getElementById('qModal').classList.add('active');
+}
+function editQ(id){
+let q=allData.find(x=>x.id===id);if(!q)return;
+document.getElementById('mTitle').textContent='编辑题目';document.getElementById('eId').value=q.id;
+document.getElementById('eStem').value=q.stem||'';document.getElementById('eModule').value=q.module||'理论';
+document.getElementById('eSection').value=q.section||'';document.getElementById('eType').value=q.type||'单选题';
+document.getElementById('eAnswer').value=Array.isArray(q.answer)?q.answer.join(','):q.answer;
+document.getElementById('eExp').value=q.explanation||'';initOpts(q.options||[]);
+document.getElementById('qModal').classList.add('active');
+}
+function initOpts(opts){
+document.getElementById('optList').innerHTML=opts.map((o,i)=>'<div class="opt-row"><span class="lbl">'+o.label+'</span>'+
+'<input type="text" value="'+(o.content||'')+'" data-l="'+o.label+'">'+(opts.length>2?'<button class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">删</button>':'')+'</div>').join('');
+}
+function addOpt(){
+let list=document.getElementById('optList'),labels=['A','B','C','D','E','F','G','H'],cnt=list.children.length;
+if(cnt>=8){toast('最多8个选项','err');return;}
+let row=document.createElement('div');row.className='opt-row';
+row.innerHTML='<span class="lbl">'+labels[cnt]+'</span><input type="text" value="" data-l="'+labels[cnt]+'"><button class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">删</button>';
+list.appendChild(row);
+}
+function typeChange(){if(document.getElementById('eType').value==='判断题')initOpts([{label:'A',content:'正确'},{label:'B',content:'错误'}]);}
+function saveQ(){
+let id=document.getElementById('eId').value,stem=document.getElementById('eStem').value.trim(),
+mod=document.getElementById('eModule').value,sec=document.getElementById('eSection').value.trim(),
+typ=document.getElementById('eType').value,ans=document.getElementById('eAnswer').value.trim(),
+exp=document.getElementById('eExp').value.trim();
+if(!stem){toast('请输入题目内容','err');return;}if(!ans){toast('请输入正确答案','err');return;}
+let opts=[];document.querySelectorAll('#optList input').forEach(inp=>{if(inp.value.trim())opts.push({label:inp.dataset.l,content:inp.value.trim()});});
+if(opts.length<2){toast('至少2个选项','err');return;}
+let answer=typ==='多选题'?ans.split(',').map(a=>a.trim()).filter(Boolean):ans;
+let data={stem,module:mod,section:sec,type:typ,options:opts,answer,explanation:exp};
+let url=id?'/api/questions/'+id:'/api/questions',method=id?'PUT':'POST';
+fetch(url,{method,headers:{'Content-Type':'application/json','x-admin-token':token},body:JSON.stringify(data)})
+.then(r=>r.json()).then(d=>{
+if(d.success){toast('保存成功','ok');closeM('qModal');loadStats();loadList();}else{toast(d.message||'保存失败','err');}
+}).catch(()=>toast('网络错误','err'));
+}
+function delQ(id){if(!confirm('确定删除这道题？'))return;
+fetch('/api/questions/'+id,{method:'DELETE',headers:{'x-admin-token':token}})
+.then(r=>r.json()).then(d=>{if(d.success){toast('删除成功','ok');loadStats();loadList();}else{toast('删除失败','err');}})
+.catch(()=>toast('网络错误','err'));
+}
+function exportData(){window.open('/api/export?token='+token);}
+function showImport(){document.getElementById('iText').value='';document.getElementById('iFile').value='';document.getElementById('iModal').classList.add('active');}
+function readFile(){let f=document.getElementById('iFile').files[0];if(!f)return;let r=new FileReader();r.onload=e=>{document.getElementById('iText').value=e.target.result;};r.readAsText(f);}
+function doImport(){
+let txt=document.getElementById('iText').value.trim();if(!txt){toast('请输入内容','err');return;}
+try{let qs=JSON.parse(txt);if(!Array.isArray(qs))throw new Error('需要数组');
+fetch('/api/questions/batch',{method:'POST',headers:{'Content-Type':'application/json','x-admin-token':token},body:JSON.stringify({questions:qs})})
+.then(r=>r.json()).then(d=>{if(d.success){toast(d.message||'导入成功','ok');closeM('iModal');loadStats();loadList();}else{toast('导入失败','err');}})
+.catch(()=>toast('网络错误','err'));
+}catch(e){toast('JSON格式错误：'+e.message,'err');}
+}
+function closeM(id){document.getElementById(id).classList.remove('active');}
+function toast(msg,type='ok'){let t=document.createElement('div');t.className='toast '+type;t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2500);}
+</script>
+</body>
+</html>
