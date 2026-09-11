@@ -49544,7 +49544,7 @@ const AppState = {
     },
 
     // ==================== 练习进度保存（顺序练习/背题模式） ====================
-    saveQuizProgress() {
+    saveQuizProgress(showToast = false) {
         // 只保存顺序练习和背题模式的进度
         if (this.quizMode !== 'sequential' && this.quizMode !== 'review') return;
 
@@ -49558,6 +49558,10 @@ const AppState = {
             lastSaveTime: Date.now()
         };
         Storage.set('quiz_progress_' + this.quizMode, state);
+
+        if (showToast) {
+            showToast('进度已保存，下次进入可继续学习', 'success');
+        }
     },
 
     loadQuizProgress(mode) {
