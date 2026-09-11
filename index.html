@@ -1298,16 +1298,36 @@ svg {
 /* 响应式 - 整卷阅览 */
 @media (max-width: 768px) {
     .mode-list {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
     
     .mode-card {
-        padding: 20px 16px;
+        padding: 16px 12px;
+    }
+    
+    .mode-icon {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .mode-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .mode-info h3 {
+        font-size: 15px;
     }
     
     .mode-info p {
-        min-height: auto;
+        font-size: 12px;
+        min-height: 36px;
+    }
+    
+    .btn-primary {
+        padding: 10px 16px;
+        font-size: 14px;
     }
 
     .paper-stats {
