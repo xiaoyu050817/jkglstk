@@ -508,6 +508,89 @@ svg {
     color: var(--text-primary);
 }
 
+/* 继续学习区域 */
+.continue-learning-section {
+    margin-bottom: 32px;
+}
+
+.continue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.continue-card {
+    background: linear-gradient(135deg, var(--primary-lighter) 0%, var(--card-bg) 100%);
+    border: 1px solid var(--primary-light);
+    border-radius: var(--radius);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: var(--transition);
+}
+
+.continue-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.continue-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--primary);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.continue-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.continue-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.continue-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.continue-info p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.continue-progress {
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.continue-progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.continue-card .btn-primary {
+    width: auto;
+    padding: 8px 20px;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
 .mode-list {
     display: flex;
     flex-direction: column;
@@ -49458,6 +49541,86 @@ const AppState = {
 
     hasUnfinishedExam() {
         return Storage.get('exam_state', null) !== null;
+    },
+
+    // ==================== 练习进度保存（顺序练习/背题模式） ====================
+    saveQuizProgress() {
+        // 只保存顺序练习和背题模式的进度
+        if (this.quizMode !== 'sequential' && this.quizMode !== 'review') return;
+
+        const state = {
+            mode: this.quizMode,
+            questionIds: this.quizQuestions.map(q => q.id),
+            currentIndex: this.currentQuestionIndex,
+            selectedAnswers: this.selectedAnswers,
+            answeredIds: Array.from(this.answeredQuestions),
+            markedIds: Array.from(this.markedQuestions),
+            lastSaveTime: Date.now()
+        };
+        Storage.set('quiz_progress_' + this.quizMode, state);
+    },
+
+    loadQuizProgress(mode) {
+        const state = Storage.get('quiz_progress_' + mode, null);
+        if (!state) return false;
+
+        // 验证题目是否还存在
+        const questions = state.questionIds.map(id => this.getQuestionById(id)).filter(Boolean);
+        if (questions.length === 0) {
+            this.clearQuizProgress(mode);
+            return false;
+        }
+
+        this.quizMode = mode;
+        this.quizQuestions = questions;
+        this.currentQuestionIndex = Math.min(state.currentIndex, questions.length - 1);
+        this.selectedAnswers = state.selectedAnswers || {};
+        this.answeredQuestions = new Set(state.answeredIds || []);
+        this.markedQuestions = new Set(state.markedIds || []);
+        this.studyStartTime = Date.now();
+        return true;
+    },
+
+    clearQuizProgress(mode) {
+        Storage.remove('quiz_progress_' + mode);
+    },
+
+    hasUnfinishedQuiz(mode) {
+        const state = Storage.get('quiz_progress_' + mode, null);
+        if (!state) return false;
+        // 如果已经完成所有题目，不算未完成
+        return state.currentIndex < (state.questionIds ? state.questionIds.length - 1 : 0);
+    },
+
+    getQuizProgressInfo(mode) {
+        const state = Storage.get('quiz_progress_' + mode, null);
+        if (!state) return null;
+        return {
+            currentIndex: state.currentIndex,
+            total: state.questionIds ? state.questionIds.length : 0,
+            answeredCount: state.answeredIds ? state.answeredIds.length : 0,
+            lastSaveTime: state.lastSaveTime
+        };
+    },
+
+    // ==================== 标记题目持久化 ====================
+    getMarkedIds() {
+        return Storage.get('marked_ids', []);
+    },
+    addMarkedId(id) {
+        const ids = this.getMarkedIds();
+        if (!ids.includes(id)) {
+            ids.push(id);
+            Storage.set('marked_ids', ids);
+        }
+    },
+    removeMarkedId(id) {
+        const ids = this.getMarkedIds().filter(i => i !== id);
+        Storage.set('marked_ids', ids);
+    },
+    loadMarkedQuestions() {
+        const ids = this.getMarkedIds();
+        this.markedQuestions = new Set(ids);
     }
 };
 
@@ -49580,6 +49743,65 @@ function closeSidebar() {
 }
 
 // ==================== 首页渲染 ====================
+// 渲染继续学习区域
+function renderContinueLearningSection() {
+    const sequentialInfo = AppState.getQuizProgressInfo('sequential');
+    const reviewInfo = AppState.getQuizProgressInfo('review');
+
+    if (!sequentialInfo && !reviewInfo) return '';
+
+    let html = '<div class="continue-learning-section">';
+    html += '<h3 class="section-title">继续学习</h3>';
+    html += '<div class="continue-list">';
+
+    if (sequentialInfo && sequentialInfo.total > 0) {
+        const percent = Math.round(((sequentialInfo.currentIndex + 1) / sequentialInfo.total) * 100);
+        html += `
+            <div class="continue-card">
+                <div class="continue-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="8" y1="6" x2="21" y2="6"/>
+                        <line x1="8" y1="12" x2="21" y2="12"/>
+                        <line x1="8" y1="18" x2="21" y2="18"/>
+                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                        <line x1="3" y1="18" x2="3.01" y2="18"/>
+                    </svg>
+                </div>
+                <div class="continue-info">
+                    <h4>顺序练习</h4>
+                    <p>第 ${sequentialInfo.currentIndex + 1} / ${sequentialInfo.total} 题 · 已答 ${sequentialInfo.answeredCount} 题</p>
+                    <div class="continue-progress"><div class="continue-progress-fill" style="width:${percent}%"></div></div>
+                </div>
+                <button class="btn-primary" onclick="startQuiz('sequential')">继续</button>
+            </div>
+        `;
+    }
+
+    if (reviewInfo && reviewInfo.total > 0) {
+        const percent = Math.round(((reviewInfo.currentIndex + 1) / reviewInfo.total) * 100);
+        html += `
+            <div class="continue-card">
+                <div class="continue-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                    </svg>
+                </div>
+                <div class="continue-info">
+                    <h4>背题模式</h4>
+                    <p>第 ${reviewInfo.currentIndex + 1} / ${reviewInfo.total} 题</p>
+                    <div class="continue-progress"><div class="continue-progress-fill" style="width:${percent}%"></div></div>
+                </div>
+                <button class="btn-primary" onclick="startQuiz('review')">继续</button>
+            </div>
+        `;
+    }
+
+    html += '</div></div>';
+    return html;
+}
+
 function renderHomePage() {
     const allQuestions = AppState.getAllQuestions();
     const answeredIds = AppState.getAnsweredIds();
@@ -49672,6 +49894,8 @@ function renderHomePage() {
             </div>
             <div class="progress-text">已练习 ${answeredIds.length} / ${allQuestions.length} 题 · 收藏 ${favoriteIds.length} 题</div>
         </div>
+
+        ${renderContinueLearningSection()}
 
         <h3 class="section-title">选择练习模式</h3>
         <div class="mode-list">
@@ -49804,7 +50028,24 @@ function renderHomePage() {
 }
 
 // ==================== 答题功能 ====================
-function startQuiz(mode, questionIds = null) {
+function startQuiz(mode, questionIds = null, resumeProgress = true) {
+    // 顺序练习和背题模式：检查是否有保存的进度，如果有则自动恢复
+    if (resumeProgress && (mode === 'sequential' || mode === 'review') && !questionIds) {
+        if (AppState.hasUnfinishedQuiz(mode)) {
+            const info = AppState.getQuizProgressInfo(mode);
+            if (info && info.total > 0) {
+                // 自动恢复进度
+                if (AppState.loadQuizProgress(mode)) {
+                    navigateTo('quiz');
+                    renderQuizPage();
+                    const modeNames = { sequential: '顺序练习', review: '背题模式' };
+                    showToast(`已恢复${modeNames[mode]}进度：第${info.currentIndex + 1}/${info.total}题`, 'success');
+                    return;
+                }
+            }
+        }
+    }
+
     AppState.quizMode = mode;
     AppState.currentQuestionIndex = 0;
     AppState.selectedAnswers = {};
@@ -49823,6 +50064,12 @@ function startQuiz(mode, questionIds = null) {
     }
 
     AppState.quizQuestions = questions;
+
+    // 清除之前的进度（新开始的练习）
+    if (mode === 'sequential' || mode === 'review') {
+        AppState.clearQuizProgress(mode);
+    }
+
     navigateTo('quiz');
     renderQuizPage();
 }
@@ -50080,6 +50327,9 @@ function selectOption(label) {
         AppState.saveExamState();
     }
 
+    // 顺序练习和背题模式：保存进度
+    AppState.saveQuizProgress();
+
     renderQuizPage();
 }
 
@@ -50124,6 +50374,9 @@ function submitAnswer() {
     AppState.updateStudyStats(studySeconds, isCorrect ? 1 : 0, 1);
     AppState.studyStartTime = Date.now();
 
+    // 顺序练习和背题模式：保存进度
+    AppState.saveQuizProgress();
+
     renderQuizPage();
 }
 
@@ -50134,6 +50387,8 @@ function nextQuestion() {
         if (AppState.quizMode === 'exam') {
             AppState.saveExamState();
         }
+        // 顺序练习和背题模式：保存进度
+        AppState.saveQuizProgress();
         renderQuizPage();
         window.scrollTo(0, 0);
     } else {
@@ -50149,6 +50404,8 @@ function prevQuestion() {
         if (AppState.quizMode === 'exam') {
             AppState.saveExamState();
         }
+        // 顺序练习和背题模式：保存进度
+        AppState.saveQuizProgress();
         renderQuizPage();
         window.scrollTo(0, 0);
     }
@@ -50170,10 +50427,15 @@ function toggleFavoriteQuestion(id) {
 function toggleMarkQuestion(id) {
     if (AppState.markedQuestions.has(id)) {
         AppState.markedQuestions.delete(id);
+        AppState.removeMarkedId(id);
+        showToast('已取消标记', 'success');
     } else {
         AppState.markedQuestions.add(id);
+        AppState.addMarkedId(id);
         showToast('已标记此题', 'success');
     }
+    // 保存进度
+    AppState.saveQuizProgress();
     renderQuizPage();
 }
 
@@ -50183,11 +50445,18 @@ function confirmExitQuiz() {
             finishExam();
         }
     } else {
+        // 顺序练习和背题模式：退出前保存进度
+        AppState.saveQuizProgress();
         navigateTo('home');
     }
 }
 
 function finishQuiz() {
+    // 完成练习时清除进度
+    if (AppState.quizMode === 'sequential' || AppState.quizMode === 'review') {
+        AppState.clearQuizProgress(AppState.quizMode);
+    }
+
     const total = AppState.quizQuestions.length;
     const answered = AppState.answeredQuestions.size;
     let correct = 0;
@@ -51549,6 +51818,9 @@ function closeModal() {
 
 // ==================== 初始化 ====================
 function initApp() {
+    // 加载标记题目
+    AppState.loadMarkedQuestions();
+
     // 导航点击事件
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', (e) => {
@@ -51608,6 +51880,26 @@ function initApp() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', initApp);
+
+// 页面卸载前保存进度，确保数据不丢失
+window.addEventListener('beforeunload', function() {
+    // 保存考试状态
+    if (AppState.quizMode === 'exam' && AppState.examTimer) {
+        AppState.saveExamState();
+    }
+    // 保存练习进度
+    AppState.saveQuizProgress();
+});
+
+// 页面隐藏时保存进度（手机切换应用时）
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        if (AppState.quizMode === 'exam' && AppState.examTimer) {
+            AppState.saveExamState();
+        }
+        AppState.saveQuizProgress();
+    }
+});
 
 </script>
 <script>
