@@ -1359,6 +1359,10 @@ svg {
     .paper-q-number {
         font-size: 14px;
     }
+
+    .tool-card.full-width {
+        grid-column: 1 / -1;
+    }
 }
 
 /* ==================== 空状态 ==================== */
@@ -2134,7 +2138,8 @@ svg {
     }
 
     .tools-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
     .stats-overview {
