@@ -508,38 +508,38 @@ svg {
     color: var(--text-primary);
 }
 
-.mode-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+/* 继续学习区域 */
+.continue-learning-section {
     margin-bottom: 32px;
 }
 
-.mode-card {
-    background: var(--card-bg);
+.continue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.continue-card {
+    background: linear-gradient(135deg, var(--primary-lighter) 0%, var(--card-bg) 100%);
+    border: 1px solid var(--primary-light);
     border-radius: var(--radius);
-    padding: 20px;
-    box-shadow: var(--shadow-sm);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
     transition: var(--transition);
 }
 
-.mode-card:hover {
+.continue-card:hover {
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
-.mode-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 16px;
-}
-
-.mode-icon {
-    width: 48px;
-    height: 48px;
-    background: var(--primary-lighter);
-    color: var(--primary);
+.continue-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--primary);
+    color: white;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -547,21 +547,128 @@ svg {
     flex-shrink: 0;
 }
 
+.continue-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.continue-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.continue-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.continue-info p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.continue-progress {
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.continue-progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.continue-card .btn-primary {
+    width: auto;
+    padding: 8px 20px;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.mode-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.mode-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.mode-card:hover {
+    box-shadow: 0 8px 24px rgba(15, 118, 110, 0.15);
+    transform: translateY(-4px);
+    border-color: var(--primary-light);
+}
+
+.mode-card:hover .mode-icon {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    transform: scale(1.05);
+}
+
+.mode-card .mode-icon {
+    transition: all 0.3s ease;
+}
+
+.mode-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex: 1;
+}
+
+.mode-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--primary-lighter), var(--primary-bg));
+    color: var(--primary);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(15, 118, 110, 0.15);
+}
+
 .mode-icon svg {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
 }
 
 .mode-info h3 {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    color: var(--text-primary);
 }
 
 .mode-info p {
     font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.5;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary {
@@ -694,6 +801,36 @@ svg {
     border-radius: 20px;
     font-size: 13px;
     font-weight: 500;
+}
+
+.quiz-module-switch {
+    display: flex;
+    gap: 4px;
+    background: var(--bg-secondary);
+    padding: 3px;
+    border-radius: 8px;
+}
+
+.module-btn {
+    padding: 5px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.module-btn:hover {
+    color: var(--text-primary);
+}
+
+.module-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .quiz-redo {
@@ -965,15 +1102,31 @@ svg {
 .quiz-nav {
     display: flex;
     gap: 12px;
+    align-items: stretch;
 }
 
 .quiz-nav .btn-secondary {
     min-width: 100px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
 .quiz-nav .btn-primary {
     min-width: 120px;
     width: auto;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.quiz-nav .quiz-nav-btn {
+    flex: 1;
+    min-width: 0;
 }
 
 /* 考试计时器 */
@@ -1190,6 +1343,39 @@ svg {
 
 /* 响应式 - 整卷阅览 */
 @media (max-width: 768px) {
+    .mode-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .mode-card {
+        padding: 16px 12px;
+    }
+    
+    .mode-icon {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .mode-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .mode-info h3 {
+        font-size: 15px;
+    }
+    
+    .mode-info p {
+        font-size: 12px;
+        min-height: 36px;
+    }
+    
+    .btn-primary {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
     .paper-stats {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1218,6 +1404,10 @@ svg {
 
     .paper-q-number {
         font-size: 14px;
+    }
+
+    .tool-card.full-width {
+        grid-column: 1 / -1;
     }
 }
 
@@ -1598,6 +1788,108 @@ svg {
     gap: 16px;
 }
 
+
+/* ==================== 题库管理 - 完整题目显示 ==================== */
+.manage-question-options {
+    margin: 12px 0;
+    padding: 12px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+}
+
+.manage-option-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.manage-option-item:last-child {
+    margin-bottom: 0;
+}
+
+.manage-option-item.correct {
+    background: var(--success-bg);
+    border-color: var(--success);
+}
+
+.manage-option-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    flex-shrink: 0;
+    min-width: 24px;
+}
+
+.manage-option-content {
+    flex: 1;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.manage-option-correct-tag {
+    flex-shrink: 0;
+    padding: 2px 8px;
+    background: var(--success);
+    color: white;
+    font-size: 12px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.manage-answer {
+    color: var(--success);
+    font-weight: 500;
+}
+
+.manage-answer strong {
+    color: var(--success);
+    font-size: 15px;
+}
+
+.manage-question-explanation {
+    margin-top: 12px;
+    padding: 12px;
+    background: var(--primary-bg);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--primary);
+}
+
+.manage-explanation-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.manage-explanation-content {
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .manage-option-item {
+        flex-wrap: wrap;
+    }
+    
+    .manage-option-correct-tag {
+        margin-left: auto;
+    }
+    
+    .manage-question-explanation {
+        padding: 10px;
+    }
+}
+
 /* ==================== 模态框 ==================== */
 .modal {
     display: none;
@@ -1826,7 +2118,19 @@ svg {
 
     .quiz-topbar {
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 8px;
+    }
+    
+    .quiz-module-switch {
+        order: 5;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .module-btn {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 13px;
     }
 
     .quiz-mode-tag {
@@ -1892,7 +2196,8 @@ svg {
     }
 
     .tools-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
     .stats-overview {
@@ -2571,7 +2876,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第一部分",
     "type": "判断题",
-    "stem": "死亡率表示一定时期内,在所有疾病患者中死于该病患者频率",
+    "stem": "死亡率表示一定时期内，在所有疾病患者中死于该病患者频率",
     "options": [
       {
         "label": "A",
@@ -3323,8 +3628,8 @@ const QUESTION_BANK = [
         "content": "错误"
       }
     ],
-    "answer": "B",
-    "explanation": "教材明确规定：发现拟接受健康管理服务者患有某种慢性病（如高血压、糖尿病）时，应选择疾病管理随访表。故该说法正确，题库给定答案“错误”有误。"
+    "answer": "A",
+    "explanation": "教材明确规定：发现拟接受健康管理服务者患有某种慢性病（如高血压、糖尿病）时，应选择疾病管理随访表。故该说法正确，判断正确。"
   },
   {
     "id": 54,
@@ -3342,8 +3647,8 @@ const QUESTION_BANK = [
         "content": "错误"
       }
     ],
-    "answer": "B",
-    "explanation": "教材明确规定：如果个体同意接受健康管理，则应选择行为危险因素调查表。故该说法正确，题库给定答案“错误”有误。"
+    "answer": "A",
+    "explanation": "教材明确规定：如果个体同意接受健康管理，则应选择行为危险因素调查表。故该说法正确，判断正确。"
   },
   {
     "id": 55,
@@ -4292,8 +4597,8 @@ const QUESTION_BANK = [
         "content": "错误"
       }
     ],
-    "answer": "A",
-    "explanation": "党的十九大召开于2017年10月，其报告提出“发展残疾人事业，加强残疾康复服务”。题干将年份写为“2018年”，与事实不符，故给定答案“正确”有误，正确应判“错误”。"
+    "answer": "B",
+    "explanation": "党的十九大召开于2017年10月，其报告提出\"发展残疾人事业，加强残疾康复服务\"。题干将年份写为\"2018年\"，与事实不符，故判断错误。"
   },
   {
     "id": 105,
@@ -4680,7 +4985,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第二部分",
     "type": "判断题",
-    "stem": "健康决定因素只包括以下三个方面:社会经济环境.个人因素.卫生服务",
+    "stem": "健康决定因素只包括以下三个方面：社会经济环境。个人因素。卫生服务",
     "options": [
       {
         "label": "A",
@@ -5743,7 +6048,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第三部分",
     "type": "单选题",
-    "stem": "（　　）是用来记录一个人一生的生命体征的变化及自身所从事过的与健康相关的一切行为与事件?",
+    "stem": "（　　）是用来记录一个人一生的生命体征的变化及自身所从事过的与健康相关的一切行为与事件？",
     "options": [
       {
         "label": "A",
@@ -6125,7 +6430,7 @@ const QUESTION_BANK = [
     "options": [
       {
         "label": "A",
-        "content": "气可养人,亦可伤人"
+        "content": "气可养人，亦可伤人"
       },
       {
         "label": "B",
@@ -7274,15 +7579,15 @@ const QUESTION_BANK = [
         "content": "夫妻和睦的不是司机的男性"
       }
     ],
-    "answer": "C",
-    "explanation": "病例对照研究中，研究事件（结果）为“发生事故”，暴露因素为“夫妻不和”，故病例组应为发生事故的男司机，对照组应为未出事故的男司机（与病例组在司机身份、性别上可比且独立于暴露因素）。题库给定答案C“夫妻和睦的男司机”是按暴露因素选对照，会造成选择偏倚，正确应选A。"
+    "answer": "A",
+    "explanation": "病例对照研究中，研究事件（结果）为\"发生事故\"，暴露因素为\"夫妻不和\"，故病例组应为发生事故的男司机，对照组应为未出事故的男司机（与病例组在司机身份、性别上可比且独立于暴露因素）。选A。"
   },
   {
     "id": 227,
     "module": "理论",
     "section": "第三部分",
     "type": "单选题",
-    "stem": "在某地进行男性吸烟与膀脱癌关系的研究，资料如下:吸烟组膀胱癌发病率为48.0/10万，不吸烟组膀胱癌发病率为25.4/10万。根据该资料，男性吸烟与否与膀胱癌的关系的相对危险度是（　　）",
+    "stem": "在某地进行男性吸烟与膀脱癌关系的研究，资料如下：吸烟组膀胱癌发病率为48.0/10万，不吸烟组膀胱癌发病率为25.4/10万。根据该资料，男性吸烟与否与膀胱癌的关系的相对危险度是（　　）",
     "options": [
       {
         "label": "A",
@@ -7587,7 +7892,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "B",
-        "content": "多在安静时急性起病,突发头痛、呕吐、血压增高、意识障碍"
+        "content": "多在安静时急性起病，突发头痛、呕吐、血压增高、意识障碍"
       },
       {
         "label": "C",
@@ -7741,7 +8046,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第四部分",
     "type": "单选题",
-    "stem": "某项调查确定调查对象为35~65岁，其中一份调查表中的年龄却出现20岁,此调查表中的信息属于（　　）",
+    "stem": "某项调查确定调查对象为35~65岁，其中一份调查表中的年龄却出现20岁，此调查表中的信息属于（　　）",
     "options": [
       {
         "label": "A",
@@ -9936,7 +10241,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "肥胖干预措施中的控制总能量摄取,一般成人每天摄入能量控制在（　　）。",
+    "stem": "肥胖干预措施中的控制总能量摄取，一般成人每天摄入能量控制在（　　）。",
     "options": [
       {
         "label": "A",
@@ -10071,11 +10376,11 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "根据是否患有其他慢性病,如糖尿病、高血压、冠心病等,将肥胖分为单纯性肥胖和（　　）。",
+    "stem": "根据是否患有其他慢性病，如糖尿病、高血压、冠心病等，将肥胖分为单纯性肥胖和（　　）。",
     "options": [
       {
         "label": "A",
-        "content": "复杂性肥"
+        "content": "复杂性肥胖"
       },
       {
         "label": "B",
@@ -10237,15 +10542,15 @@ const QUESTION_BANK = [
     "options": [
       {
         "label": "A",
-        "content": "男性腰围应控制在90cm之内,女性应控制在85cm之内"
+        "content": "男性腰围应控制在90cm之内，女性应控制在85cm之内"
       },
       {
         "label": "B",
-        "content": "男性腰围应控制在85cm之内,女性应控制在80cm之内"
+        "content": "男性腰围应控制在85cm之内，女性应控制在80cm之内"
       },
       {
         "label": "C",
-        "content": "男性腰围应控制在95cm之内,女性应控制在85cm之内"
+        "content": "男性腰围应控制在95cm之内，女性应控制在85cm之内"
       },
       {
         "label": "D",
@@ -10314,7 +10619,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "减少自己的空闲时间；积极参加体育运动和健康有益的公益活动；多做放松技术,是在自我戒烟法的（　　）",
+    "stem": "减少自己的空闲时间；积极参加体育运动和健康有益的公益活动；多做放松技术，是在自我戒烟法的（　　）",
     "options": [
       {
         "label": "A",
@@ -10368,7 +10673,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "高血压患者应将体重控制在正常范围（　　）,男性腰围应控制在90cm之内,女性应控制在85cm之内",
+    "stem": "高血压患者应将体重控制在正常范围（　　）,男性腰围应控制在90cm之内，女性应控制在85cm之内",
     "options": [
       {
         "label": "A",
@@ -10422,7 +10727,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "中国成人超重和肥胖症预防与控制指南指出,中国成年人男性腰围（　　）,女性（　　）时,则患高血压、糖尿病、血脂异常的危险性增加。",
+    "stem": "中国成人超重和肥胖症预防与控制指南指出，中国成年人男性腰围（　　）,女性（　　）时，则患高血压、糖尿病、血脂异常的危险性增加。",
     "options": [
       {
         "label": "A",
@@ -10449,7 +10754,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "下列关于糖尿病患者的运动治疗,说法错误的是（　　）",
+    "stem": "下列关于糖尿病患者的运动治疗，说法错误的是（　　）",
     "options": [
       {
         "label": "A",
@@ -10476,7 +10781,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "我国高血压的空间分布特点,说法错误的是（　　）",
+    "stem": "我国高血压的空间分布特点，说法错误的是（　　）",
     "options": [
       {
         "label": "A",
@@ -10503,7 +10808,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "根据目前对糖尿病病因的认识,将糖尿病分为1型糖尿病、2型糖尿病、其他特殊类型糖尿病及妊娠糖尿病4个大类。其中2型糖尿病占全部糖尿病的(（　　）",
+    "stem": "根据目前对糖尿病病因的认识，将糖尿病分为1型糖尿病、2型糖尿病、其他特殊类型糖尿病及妊娠糖尿病4个大类。其中2型糖尿病占全部糖尿病的(（　　）",
     "options": [
       {
         "label": "A",
@@ -10530,7 +10835,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "关于高血压患者限制饮酒和戒酒的干预方法,说法错误的是（　　）",
+    "stem": "关于高血压患者限制饮酒和戒酒的干预方法，说法错误的是（　　）",
     "options": [
       {
         "label": "A",
@@ -10611,7 +10916,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "血糖控制差的患者或病情危重者应每天监测（　　）次,直到病情稳定,血糖得到控制。",
+    "stem": "血糖控制差的患者或病情危重者应每天监测（　　）次，直到病情稳定，血糖得到控制。",
     "options": [
       {
         "label": "A",
@@ -10638,7 +10943,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "对糖尿病常规管理的患者,要求每年至少随访（　　）",
+    "stem": "对糖尿病常规管理的患者，要求每年至少随访（　　）",
     "options": [
       {
         "label": "A",
@@ -10692,7 +10997,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "适用于注射胰岛素的患者,特别是注射中长效胰岛素的患者的血糖检测时闾是（　　）",
+    "stem": "适用于注射胰岛素的患者，特别是注射中长效胰岛素的患者的血糖检测时闾是（　　）",
     "options": [
       {
         "label": "A",
@@ -10719,7 +11024,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "高血压降压治疗药物应用应遵循的原则中,不包括（　　）。",
+    "stem": "高血压降压治疗药物应用应遵循的原则中，不包括（　　）。",
     "options": [
       {
         "label": "A",
@@ -10746,7 +11051,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "测定空腹血糖时,一般（　　）内无任何热量摄入。",
+    "stem": "测定空腹血糖时，一般（　　）内无任何热量摄入。",
     "options": [
       {
         "label": "A",
@@ -10800,11 +11105,11 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "肥胖症的防治原则,不正确是（　　）",
+    "stem": "肥胖症的防治原则，不正确是（　　）",
     "options": [
       {
         "label": "A",
-        "content": "预防为主,终生坚持"
+        "content": "预防为主，终生坚持"
       },
       {
         "label": "B",
@@ -10827,7 +11132,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "继发性高血压有明确而独立的病因,占总体高血压的（　　）",
+    "stem": "继发性高血压有明确而独立的病因，占总体高血压的（　　）",
     "options": [
       {
         "label": "A",
@@ -11016,7 +11321,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "专业卫生机构编写、印翩,其形式类似于书籍，以文字为主，信息量大、内容丰富、系统完整的传播材料是（　　）",
+    "stem": "专业卫生机构编写、印翩，其形式类似于书籍，以文字为主，信息量大、内容丰富、系统完整的传播材料是（　　）",
     "options": [
       {
         "label": "A",
@@ -11124,7 +11429,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "奶类营养丰富,下列不是奶类主要含有的营养素是（　　）",
+    "stem": "奶类营养丰富，下列不是奶类主要含有的营养素是（　　）",
     "options": [
       {
         "label": "A",
@@ -11367,7 +11672,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "下列那项不属于运动强度的测量?（　　）",
+    "stem": "下列那项不属于运动强度的测量？（　　）",
     "options": [
       {
         "label": "A",
@@ -11475,7 +11780,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "缺血性心血管疾病发病风险评估简易工具的操作步骤是:根据参加评估的指标值，查表得到不同危险因素相对危险分值,下一步为（　　）",
+    "stem": "缺血性心血管疾病发病风险评估简易工具的操作步骤是：根据参加评估的指标值，查表得到不同危险因素相对危险分值，下一步为（　　）",
     "options": [
       {
         "label": "A",
@@ -11969,11 +12274,11 @@ const QUESTION_BANK = [
     "options": [
       {
         "label": "A",
-        "content": "健康风险评估是将生活方式转化为可测量的指标,预测个体或群体在未来一定时间发生疾病或死亡的危险"
+        "content": "健康风险评估是将生活方式转化为可测量的指标，预测个体或群体在未来一定时间发生疾病或死亡的危险"
       },
       {
         "label": "B",
-        "content": "健康风险评估是一种方法或工具,是用于描述和估计某一个体未来发生某神特定疾病的可能性"
+        "content": "健康风险评估是一种方法或工具，是用于描述和估计某一个体未来发生某神特定疾病的可能性"
       },
       {
         "label": "C",
@@ -11992,7 +12297,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "对女性来讲,（　　）对预测心脏病比较有价值",
+    "stem": "对女性来讲，（　　）对预测心脏病比较有价值",
     "options": [
       {
         "label": "A",
@@ -12443,8 +12748,8 @@ const QUESTION_BANK = [
         "content": "准确度"
       }
     ],
-    "answer": "B",
-    "explanation": "“某一调查问卷能真正反映它所期望研究的概念的程度”是效度（validity）的定义；信度（reliability）指测量结果的稳定性、一致性和可靠性。故正确应选C“效度”，题库给定答案B“信度”有误。"
+    "answer": "C",
+    "explanation": "\"某一调查问卷能真正反映它所期望研究的概念的程度\"是效度（validity）的定义；信度（reliability）指测量结果的稳定性、一致性和可靠性。选C。"
   },
   {
     "id": 418,
@@ -12856,7 +13161,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第六部分",
     "type": "单选题",
-    "stem": "预防医学的学科体系非常丰富,下面哪项不是其体系（　　）。",
+    "stem": "预防医学的学科体系非常丰富，下面哪项不是其体系（　　）。",
     "options": [
       {
         "label": "A",
@@ -13057,7 +13362,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "指某检验项目在实际使用中,所有检验结果中诊断准确结果的百分比"
+        "content": "指某检验项目在实际使用中，所有检验结果中诊断准确结果的百分比"
       },
       {
         "label": "D",
@@ -13558,7 +13863,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第六部分",
     "type": "单选题",
-    "stem": "根据《阿拉木图宣言》基本卫生保健工作可分为四个方面,不包括（　　）",
+    "stem": "根据《阿拉木图宣言》基本卫生保健工作可分为四个方面，不包括（　　）",
     "options": [
       {
         "label": "A",
@@ -13955,7 +14260,7 @@ const QUESTION_BANK = [
         "content": "8次"
       }
     ],
-    "answer": "A",
+    "answer": "B",
     "explanation": "糖尿病强化管理随访频度要求至少每年12次（每月1次）。选B。"
   },
   {
@@ -14314,7 +14619,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第六部分",
     "type": "单选题",
-    "stem": "关于提问过程中的技巧,表述不正确的是（　　）",
+    "stem": "关于提问过程中的技巧，表述不正确的是（　　）",
     "options": [
       {
         "label": "A",
@@ -14395,7 +14700,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第六部分",
     "type": "单选题",
-    "stem": "在人际交流中,下列关于说话技巧表述不正确的是（　　）",
+    "stem": "在人际交流中，下列关于说话技巧表述不正确的是（　　）",
     "options": [
       {
         "label": "A",
@@ -15359,7 +15664,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第七部分",
     "type": "多选题",
-    "stem": "下列关于腰臀比的叙述,不正确的有（　　）",
+    "stem": "下列关于腰臀比的叙述，不正确的有（　　）",
     "options": [
       {
         "label": "A",
@@ -15401,7 +15706,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "B",
-        "content": "使用酷、柠檬汁、香料、姜等调味品,提高菜肴鲜味"
+        "content": "使用酷、柠檬汁、香料、姜等调味品，提高菜肴鲜味"
       },
       {
         "label": "C",
@@ -15413,7 +15718,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "E",
-        "content": "采取总量控制，使用限盐勺,按量放入菜肴"
+        "content": "采取总量控制，使用限盐勺，按量放入菜肴"
       }
     ],
     "answer": [
@@ -15501,7 +15806,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第七部分",
     "type": "多选题",
-    "stem": "以下有关糖尿病干预的表述,正确的有（　　）。",
+    "stem": "以下有关糖尿病干预的表述，正确的有（　　）。",
     "options": [
       {
         "label": "A",
@@ -15568,7 +15873,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第七部分",
     "type": "多选题",
-    "stem": "高血压干预策略的非药物治疔,主要措施有（　　）.",
+    "stem": "高血压干预策略的非药物治疗，主要措施有（　　）.",
     "options": [
       {
         "label": "A",
@@ -15642,7 +15947,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第七部分",
     "type": "多选题",
-    "stem": "对于知识性问题或决策性问题,反馈时应注意（　　）",
+    "stem": "对于知识性问题或决策性问题，反馈时应注意（　　）",
     "options": [
       {
         "label": "A",
@@ -15654,7 +15959,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "搞清对方问题的核心,不要答非所向"
+        "content": "搞清对方问题的核心，不要答非所向"
       },
       {
         "label": "D",
@@ -15677,7 +15982,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第七部分",
     "type": "多选题",
-    "stem": "人际沟通中,说话的技巧包括（　　）",
+    "stem": "人际沟通中，说话的技巧包括（　　）",
     "options": [
       {
         "label": "A",
@@ -16116,7 +16421,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第七部分",
     "type": "多选题",
-    "stem": "作为导致成瘾行为的内因,“易成瘾者”具有哪些人格特征（　　）",
+    "stem": "作为导致成瘾行为的内因，“易成瘾者”具有哪些人格特征（　　）",
     "options": [
       {
         "label": "A",
@@ -16316,7 +16621,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "E",
-        "content": "充满自信,富有组织和领导才能"
+        "content": "充满自信，富有组织和领导才能"
       }
     ],
     "answer": [
@@ -16446,7 +16751,7 @@ const QUESTION_BANK = [
     "options": [
       {
         "label": "A",
-        "content": "培养清淡饮食习惯,少吃高盐和油炸食品"
+        "content": "培养清淡饮食习惯，少吃高盐和油炸食品"
       },
       {
         "label": "B",
@@ -16458,7 +16763,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "D",
-        "content": "控制添加糖的摄入量,每天摄入不超过50g,最好控制在约30g以下"
+        "content": "控制添加糖的摄入量，每天摄入不超过50g,最好控制在约30g以下"
       },
       {
         "label": "E",
@@ -16476,11 +16781,11 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第七部分",
     "type": "多选题",
-    "stem": "关于动物性食物,说法正确的是（　　）",
+    "stem": "关于动物性食物，说法正确的是（　　）",
     "options": [
       {
         "label": "A",
-        "content": "鱼类,脂肪含量相对较低,且含有较多的不饱和脂肪酸"
+        "content": "鱼类，脂肪含量相对较低，且含有较多的不饱和脂肪酸"
       },
       {
         "label": "B",
@@ -16561,7 +16866,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "D",
-        "content": "书写规范，字迹清晰，不写错别字、繁体字、异体字;尽量不要竖写，如果要竖写，应自右而左，标题居右。"
+        "content": "书写规范，字迹清晰，不写错别字、繁体字、异体字；尽量不要竖写，如果要竖写，应自右而左，标题居右。"
       },
       {
         "label": "E",
@@ -16616,7 +16921,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第七部分",
     "type": "多选题",
-    "stem": "健康风险的表述方法中,理想风险度是指（　　）",
+    "stem": "健康风险的表述方法中，理想风险度是指（　　）",
     "options": [
       {
         "label": "A",
@@ -16684,7 +16989,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第七部分",
     "type": "多选题",
-    "stem": "赵先生每天吸10支烟,未来10年的绝对风险率是7.3%，健康管理师给赵先生的解读正确的是（　　）",
+    "stem": "赵先生每天吸10支烟，未来10年的绝对风险率是7.3%，健康管理师给赵先生的解读正确的是（　　）",
     "options": [
       {
         "label": "A",
@@ -16768,7 +17073,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "在具体年龄阶段的危险因素.与发病率的基础上，估计未来可能发生的某种特定疾病或因为某种特定疾病导致死亡的可能性"
+        "content": "在具体年龄阶段的危险因素。与发病率的基础上，估计未来可能发生的某种特定疾病或因为某种特定疾病导致死亡的可能性"
       },
       {
         "label": "D",
@@ -17292,7 +17597,7 @@ const QUESTION_BANK = [
     "module": "理论",
     "section": "第七部分",
     "type": "多选题",
-    "stem": "人们是否需要健康管理服务是根据（　　）判断的?",
+    "stem": "人们是否需要健康管理服务是根据（　　）判断的？",
     "options": [
       {
         "label": "A",
@@ -18520,7 +18825,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "发现愈晚,疗效愈差"
+        "content": "发现愈晚，疗效愈差"
       },
       {
         "label": "D",
@@ -18986,11 +19291,11 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "医学基础知识(预防医学、临床医学,中医学)"
+        "content": "医学基础知识(预防医学、临床医学，中医学)"
       },
       {
         "label": "D",
-        "content": "其他相关知识(信息、心理、营养、运动、卫生营销,管理学,经济学)"
+        "content": "其他相关知识(信息、心理、营养、运动、卫生营销，管理学，经济学)"
       },
       {
         "label": "E",
@@ -21780,10 +22085,14 @@ const QUESTION_BANK = [
       {
         "label": "D",
         "content": "饮酒情况"
+      },
+      {
+        "label": "E",
+        "content": "体检信息"
       }
     ],
-    "answer": "D",
-    "explanation": "《生活方式信息记录表》包含烟草使用、饮酒情况、膳食情况、身体活动四类信息，饮酒情况明确属于生活方式信息，故“不包括饮酒情况”的答案不成立。"
+    "answer": "E",
+    "explanation": "生活方式信息包括膳食情况、身体活动、烟草使用、饮酒情况四类；体检信息属于健康体检数据，不属于生活方式信息采集范围。选E。"
   },
   {
     "id": 707,
@@ -21863,8 +22172,8 @@ const QUESTION_BANK = [
         "content": "血、尿常规、血糖、血脂等实验室检查"
       }
     ],
-    "answer": "D",
-    "explanation": "健康体检基本项目目录中，必选项目包括体格检查、实验室检查（血、尿常规、血糖、血脂等）、辅助检查（心电图、X线、超声）等；糖化血红蛋白检测属备选/专项筛查项目，可不纳入必选。题库给D“实验室检查”错误。"
+    "answer": "A",
+    "explanation": "健康体检基本项目目录中，必选项目包括体格检查、实验室检查（血、尿常规、血糖、血脂等）、辅助检查（心电图、X线、超声）等；糖化血红蛋白检测属备选/专项筛查项目，可不纳入必选。选A。"
   },
   {
     "id": 710,
@@ -21906,19 +22215,23 @@ const QUESTION_BANK = [
       },
       {
         "label": "B",
-        "content": "家庭评估资料"
+        "content": "社区卫生服务资料"
       },
       {
         "label": "C",
-        "content": "家庭基本资料"
+        "content": "家庭评估资料"
       },
       {
         "label": "D",
+        "content": "家庭基本资料"
+      },
+      {
+        "label": "E",
         "content": "家庭主要问题的目录和描述"
       }
     ],
     "answer": "B",
-    "explanation": "按健康管理师教材，家庭健康档案包括家庭基本资料、家系图、家庭主要问题目录及描述、家庭成员的健康记录和家庭评估资料（家庭结构、功能评估等），故“家庭评估资料不属于”不成立。"
+    "explanation": "家庭健康档案包括家庭基本资料、家系图、家庭主要问题目录及描述、家庭成员的健康记录和家庭评估资料；社区卫生服务资料属于社区层面档案，不属于家庭健康档案内容。选B。"
   },
   {
     "id": 712,
@@ -21969,10 +22282,14 @@ const QUESTION_BANK = [
       {
         "label": "D",
         "content": "身份证号码"
+      },
+      {
+        "label": "E",
+        "content": "经济收入"
       }
     ],
-    "answer": "B",
-    "explanation": "按国家基本公共卫生服务规范，个人基本信息表包含药物过敏史、既往史（疾病/患病史、手术、外伤、输血史）、家族史、遗传病史、身份证号码等，故“患病史不包括”不成立。"
+    "answer": "E",
+    "explanation": "个人基本信息表包含药物过敏史、既往史（疾病/患病史、手术、外伤、输血史）、家族史、遗传病史、身份证号码等；经济收入属于社会经济状况调查，不属于个人基本信息表常规内容。选E。"
   },
   {
     "id": 714,
@@ -23275,7 +23592,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第一部分",
     "type": "单选题",
-    "stem": "建立居民个人健康档案时,以下是常用的调查表,但不包括（）。",
+    "stem": "建立居民个人健康档案时，以下是常用的调查表，但不包括（）。",
     "options": [
       {
         "label": "A",
@@ -23395,15 +23712,19 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "个人基本信息、目前健康状况"
+        "content": "行政级别"
       },
       {
         "label": "D",
+        "content": "个人基本信息、目前健康状况"
+      },
+      {
+        "label": "E",
         "content": "健康体检基本项目"
       }
     ],
     "answer": "C",
-    "explanation": "健康调查一般包括生活方式信息（膳食、身体活动、烟草、饮酒）、疾病既往史与家族史、健康体检基本项目；个人基本信息、目前健康状况通过基本信息表与问诊采集，不属“健康调查”问卷范围。选C。"
+    "explanation": "健康调查一般包括生活方式信息（膳食、身体活动、烟草、饮酒）、疾病既往史与家族史、个人基本信息与目前健康状况、健康体检基本项目；行政级别属于人事管理信息，不属于健康调查范围。选C。"
   },
   {
     "id": 767,
@@ -23665,15 +23986,19 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "运动量从小到大"
+        "content": "以运动后1天自我感觉疲劳为度"
       },
       {
         "label": "D",
+        "content": "运动量从小到大"
+      },
+      {
+        "label": "E",
         "content": "制定具体可行的短期运动目标"
       }
     ],
     "answer": "C",
-    "explanation": "身体活动干预应循序渐进：运动强度从弱变强、运动量从小到大，高强度运动前进行心肺功能检查，并制定具体可行的短期运动目标，四项均正确，故“描述错误的是C”不成立。"
+    "explanation": "身体活动干预应循序渐进：运动强度从弱变强、运动量从小到大，高强度运动前进行心肺功能检查，并制定具体可行的短期运动目标；运动后1天自我感觉疲劳说明运动量过大，不是合理的运动干预原则。选C。"
   },
   {
     "id": 777,
@@ -23834,7 +24159,7 @@ const QUESTION_BANK = [
         "content": "口服葡萄糖耐量试验"
       }
     ],
-    "answer": "C",
+    "answer": "B",
     "explanation": "通知居民免费体检筛查糖尿病，必需且合适的体检项目是空腹血糖（也可测随机血糖筛查，但空腹血糖为规范首选）。选B。"
   },
   {
@@ -26264,8 +26589,8 @@ const QUESTION_BANK = [
         "content": "交通时的身体活动"
       }
     ],
-    "answer": "B",
-    "explanation": "询问每天工作、生活、交通过程及会朋友时坐着的时间，旨在了解其静态习惯（久坐行为），而非娱乐性身体活动。题库给B错误。"
+    "answer": "A",
+    "explanation": "询问每天工作、生活、交通过程及会朋友时坐着的时间，旨在了解其静态习惯（久坐行为），而非娱乐性身体活动。选A。"
   },
   {
     "id": 873,
@@ -26299,7 +26624,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第二部分",
     "type": "单选题",
-    "stem": "魏先生，48岁，大学文化，企业家工作紧张，经常加班睡眠较少，经常在外聚餐，饮酒，几乎没有主动身体活动，最近自感头晕耳鸣，其父有高血压史30年，社区医院采用电子血压计非同日三次测量其血压为145/85mmHg，诊断为高血压病，建议口服药物治疗。作为一名健康管理师,您认为医院诊疗的不妥之处是()。",
+    "stem": "魏先生，48岁，大学文化，企业家工作紧张，经常加班睡眠较少，经常在外聚餐，饮酒，几乎没有主动身体活动，最近自感头晕耳鸣，其父有高血压史30年，社区医院采用电子血压计非同日三次测量其血压为145/85mmHg，诊断为高血压病，建议口服药物治疗。作为一名健康管理师，您认为医院诊疗的不妥之处是()。",
     "options": [
       {
         "label": "A",
@@ -26353,7 +26678,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第二部分",
     "type": "单选题",
-    "stem": "您的客户是高血压病人,在进行体检时，最重要的生化检测指标是()。",
+    "stem": "您的客户是高血压病人，在进行体检时，最重要的生化检测指标是()。",
     "options": [
       {
         "label": "A",
@@ -26407,7 +26732,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第二部分",
     "type": "单选题",
-    "stem": "下列选项中,您认为对您的高血压病客户采用的的非药物治疗最重要的措施是()。",
+    "stem": "下列选项中，您认为对您的高血压病客户采用的的非药物治疗最重要的措施是()。",
     "options": [
       {
         "label": "A",
@@ -26534,8 +26859,8 @@ const QUESTION_BANK = [
         "content": "缓慢充气，缓慢放气"
       }
     ],
-    "answer": "B",
-    "explanation": "规范测压应快速充气至肱动脉搏动消失后继续充气20~30mmHg，然后以约2~4mmHg/s的速度缓慢放气并读取数值。题库答案“快速充气、快速放气”的“快速放气”明显错误。"
+    "answer": "A",
+    "explanation": "规范测压应快速充气至肱动脉搏动消失后继续充气20~30mmHg，然后以约2~4mmHg/s的速度缓慢放气并读取数值。选A。"
   },
   {
     "id": 883,
@@ -28228,15 +28553,19 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "逻辑检错的设置"
+        "content": "问卷的设计"
       },
       {
         "label": "D",
+        "content": "逻辑检错的设置"
+      },
+      {
+        "label": "E",
         "content": "数据库结构"
       }
     ],
     "answer": "C",
-    "explanation": "对信息录入员的培训内容包括数据库结构、调查表编码、逻辑差错（检错）设置、数据库文件保存、缺失值编码要求等，故“逻辑检错的设置不包括”不成立。"
+    "explanation": "对信息录入员的培训内容包括数据库结构、调查表编码、逻辑差错（检错）设置、数据库文件保存、缺失值编码要求等；问卷的设计属于研究设计阶段工作，录入员只需按既定问卷录入，不涉及问卷设计。选C。"
   },
   {
     "id": 946,
@@ -29215,7 +29544,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第三部分",
     "type": "单选题",
-    "stem": "江先生，49岁，经商，身高180cm，体重100kg，血压160/92mmHg，总胆固醇7.8mmol/L，饮食偏咸，爱吃油条、油炸食品、红烧肉等，烟龄30余年，喜欢喝酒，经常应酬，热爱户外运动，最近生意竞争激烈，感觉心理压力大，无其他疾病史。您是他的健康管理师,对他的健康风险进行评估，预测他应该注意的易患疾病不包括（）。",
+    "stem": "江先生，49岁，经商，身高180cm，体重100kg，血压160/92mmHg，总胆固醇7.8mmol/L，饮食偏咸，爱吃油条、油炸食品、红烧肉等，烟龄30余年，喜欢喝酒，经常应酬，热爱户外运动，最近生意竞争激烈，感觉心理压力大，无其他疾病史。您是他的健康管理师，对他的健康风险进行评估，预测他应该注意的易患疾病不包括（）。",
     "options": [
       {
         "label": "A",
@@ -29232,17 +29561,21 @@ const QUESTION_BANK = [
       {
         "label": "D",
         "content": "COPD"
+      },
+      {
+        "label": "E",
+        "content": "精神分裂症"
       }
     ],
-    "answer": "B",
-    "explanation": "江先生血压160/92mmHg、总胆固醇7.8mmol/L、BMI≈30.9肥胖、烟龄30年并大量饮酒，脑卒中、冠心病、糖尿病、COPD均属易患疾病，其中冠心病风险最高，故“易患疾病不包括冠心病”不成立。"
+    "answer": "E",
+    "explanation": "江先生血压160/92mmHg、总胆固醇7.8mmol/L、BMI≈30.9肥胖、烟龄30年并大量饮酒，脑卒中、冠心病、糖尿病、COPD均属易患疾病；精神分裂症属于精神疾病，与上述心血管代谢危险因素无直接关联。选E。"
   },
   {
     "id": 983,
     "module": "实操",
     "section": "第三部分",
     "type": "单选题",
-    "stem": "江先生，49岁，经商，身高180cm，体重100kg，血压160/92mmHg，总胆固醇7.8mmol/L，饮食偏咸，爱吃油条、油炸食品、红烧肉等，烟龄30余年，喜欢喝酒，经常应酬，热爱户外运动，最近生意竞争激烈，感觉心理压力大，无其他疾病史。您是他的健康管理师,对他的健康风险进行评估，提醒他应该注意的健康危险因素不包括（）。",
+    "stem": "江先生，49岁，经商，身高180cm，体重100kg，血压160/92mmHg，总胆固醇7.8mmol/L，饮食偏咸，爱吃油条、油炸食品、红烧肉等，烟龄30余年，喜欢喝酒，经常应酬，热爱户外运动，最近生意竞争激烈，感觉心理压力大，无其他疾病史。您是他的健康管理师，对他的健康风险进行评估，提醒他应该注意的健康危险因素不包括（）。",
     "options": [
       {
         "label": "A",
@@ -29285,11 +29618,11 @@ const QUESTION_BANK = [
       },
       {
         "label": "D",
-        "content": "每星期1次"
+        "content": "每3个月1次"
       }
     ],
-    "answer": "B",
-    "explanation": "按疾病危险程度分级随访：高度危险每3个月1次、中度危险每6个月1次、低度危险每年1次。题干为高度危险服务对象，应为每3个月1次，题库给“每年1次”错误。"
+    "answer": "D",
+    "explanation": "按疾病危险程度分级随访：高度危险每3个月1次、中度危险每6个月1次、低度危险每年1次。题干为高度危险服务对象，应为每3个月1次。选D。"
   },
   {
     "id": 985,
@@ -30592,7 +30925,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第四部分",
     "type": "单选题",
-    "stem": "一位49岁的男性，血压150/90mmHg，体质指数25kg/m2，血清总胆固醇6.4mmol/L，吸烟，无糖尿病，请采用缺血性心血管疾病评估模型回答下列问题:经查简易评估工具的计算表格，得出相应的健康分值为：年龄50岁=3分，SBP150mmHg=2分，BMI25kg/m2=1分，TC6.46mmol/L=1分，吸烟=2分，无糖尿病=0分，请计算出该男性的总风险分值（）。",
+    "stem": "一位49岁的男性，血压150/90mmHg，体质指数25kg/m2，血清总胆固醇6.4mmol/L，吸烟，无糖尿病，请采用缺血性心血管疾病评估模型回答下列问题：经查简易评估工具的计算表格，得出相应的健康分值为：年龄50岁=3分，SBP150mmHg=2分，BMI25kg/m2=1分，TC6.46mmol/L=1分，吸烟=2分，无糖尿病=0分，请计算出该男性的总风险分值（）。",
     "options": [
       {
         "label": "A",
@@ -30673,7 +31006,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第四部分",
     "type": "单选题",
-    "stem": "赵先生是您的健康管理客户，41岁，身高170cm，体重90kg，某企业负责人，工作应酬多，长期作息不规律，喜食煎炸烧烤，疏于运动，近期，赵先生常心慌头晕，头部烘热汗出，食量大增，体重剧增。您计划指导他控制体重,适宜的减肥速度是（）。",
+    "stem": "赵先生是您的健康管理客户，41岁，身高170cm，体重90kg，某企业负责人，工作应酬多，长期作息不规律，喜食煎炸烧烤，疏于运动，近期，赵先生常心慌头晕，头部烘热汗出，食量大增，体重剧增。您计划指导他控制体重，适宜的减肥速度是（）。",
     "options": [
       {
         "label": "A",
@@ -30997,7 +31330,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第四部分",
     "type": "单选题",
-    "stem": "缺血性心血管疾病发病风险评估简易工具的操作步骤是:根据参加评估的指标值，查表得到不同危险因素相对危险分值,下一步为（）。",
+    "stem": "缺血性心血管疾病发病风险评估简易工具的操作步骤是：根据参加评估的指标值，查表得到不同危险因素相对危险分值，下一步为（）。",
     "options": [
       {
         "label": "A",
@@ -32312,15 +32645,15 @@ const QUESTION_BANK = [
         "content": "每12个月1次"
       }
     ],
-    "answer": "B",
-    "explanation": "高度危险服务对象随访时间一般为每3个月1次（实操四Q2/Q6、实操三Q90、实操九Q42同知识点均答每3个月）。题库给B“每9个月1次”无此标准，错误。"
+    "answer": "A",
+    "explanation": "高度危险服务对象随访时间一般为每3个月1次（实操四Q2/Q6、实操三Q90、实操九Q42同知识点均答每3个月）。选A。"
   },
   {
     "id": 1097,
     "module": "实操",
     "section": "第五部分",
     "type": "单选题",
-    "stem": "江先生，50岁，经商，身高180cm，体重100kg，血压160/92mmHg，总胆固醇7.8mmol/L，饮食偏咸，爱吃油条、油炸食品、红烧肉等，烟龄30余年，喜欢喝酒，经常应酬，热爱户外运动，最近生意竞争激烈，感觉心理压力大，无其他疾病史。您是他的健康管理师,对他干预管理一年后评估其结果，评估指标不适合的有（）。",
+    "stem": "江先生，50岁，经商，身高180cm，体重100kg，血压160/92mmHg，总胆固醇7.8mmol/L，饮食偏咸，爱吃油条、油炸食品、红烧肉等，烟龄30余年，喜欢喝酒，经常应酬，热爱户外运动，最近生意竞争激烈，感觉心理压力大，无其他疾病史。您是他的健康管理师，对他干预管理一年后评估其结果，评估指标不适合的有（）。",
     "options": [
       {
         "label": "A",
@@ -32853,7 +33186,7 @@ const QUESTION_BANK = [
       }
     ],
     "answer": "B",
-    "explanation": "减少钠盐摄入措施包括少食加工食品、减少烹调用盐并用限盐勺、减少味精酱油等调味品用量等；教材口径中“使用含钾烹调用盐”不属所列减盐措施。选B。"
+    "explanation": "减少钠盐摄入措施包括少食加工食品、减少烹调用盐并用限盐勺、减少味精酱油等调味品用量等；教材口径中\"使用含钾烹调用盐\"不属所列减盐措施。选B。"
   },
   {
     "id": 1117,
@@ -35074,7 +35407,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第六部分",
     "type": "单选题",
-    "stem": "您是某社区健康管理师,针对该辖区内慢性阻塞性肺疾病患者进行健康教育,决定在该社区创立无烟社区，规定社区公共场所一律禁止吸烟，请您回答这属于健康教育中的哪种策略（）。",
+    "stem": "您是某社区健康管理师，针对该辖区内慢性阻塞性肺疾病患者进行健康教育，决定在该社区创立无烟社区，规定社区公共场所一律禁止吸烟，请您回答这属于健康教育中的哪种策略（）。",
     "options": [
       {
         "label": "A",
@@ -35101,7 +35434,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第六部分",
     "type": "单选题",
-    "stem": "某工厂为了提高流水线上工人的工作效率，每天上午10点组织工人做工间操，您是该工厂的健康管理师,请选择这种策略属于（）。",
+    "stem": "某工厂为了提高流水线上工人的工作效率，每天上午10点组织工人做工间操，您是该工厂的健康管理师，请选择这种策略属于（）。",
     "options": [
       {
         "label": "A",
@@ -36117,10 +36450,14 @@ const QUESTION_BANK = [
       {
         "label": "D",
         "content": "少喝或不喝菜汤、面汤"
+      },
+      {
+        "label": "E",
+        "content": "使用含钾的烹调用盐"
       }
     ],
-    "answer": "A",
-    "explanation": "减少钠盐摄入措施包括减少味精酱油等调味品用量、减少烹调用盐并用盐勺、少食咸菜火腿等加工食品、少喝菜汤面汤等，四项均为减盐措施，故A“不属于”不成立。"
+    "answer": "E",
+    "explanation": "减少钠盐摄入措施包括减少味精酱油等调味品用量、减少烹调用盐并用盐勺、少食咸菜火腿等加工食品、少喝菜汤面汤等；\"使用含钾的烹调用盐\"不属于减少钠盐摄入的措施。选E。"
   },
   {
     "id": 1238,
@@ -36440,11 +36777,11 @@ const QUESTION_BANK = [
       },
       {
         "label": "D",
-        "content": "限制吸烟.劝阻别人戒烟"
+        "content": "限制吸烟。劝阻别人戒烟"
       }
     ],
-    "answer": "A",
-    "explanation": "针对群体的烟草干预措施包括拒吸第一支烟、加强健康教育普及烟草危害知识、限制吸烟和劝阻别人戒烟、建立行为危险因素监测系统等（同部分Q66、Q8均将“加强健康教育”列为群体措施）。“对吸烟员工发放戒烟产品”属个体化措施，题库给A“加强健康教育”错误。"
+    "answer": "D",
+    "explanation": "针对群体的烟草干预措施包括拒吸第一支烟、加强健康教育普及烟草危害知识、限制吸烟和劝阻别人戒烟、建立行为危险因素监测系统等（同部分Q66、Q8均将“加强健康教育”列为群体措施）。“对吸烟员工发放戒烟产品”属个体化措施，选D。"
   },
   {
     "id": 1250,
@@ -36505,7 +36842,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第六部分",
     "type": "单选题",
-    "stem": "某企业制定员工的健康教育计划，提出通过企业微信公众号推广员工健身活动.在距离工作区域较近的休闲区域放置健身器械等方案，预期通过一年的努力，员工的锻炼率有所提高。请回答：工作区域较近的休闲区域放置健身器械的方式属于健康教育干预策略中的何种策略（）。",
+    "stem": "某企业制定员工的健康教育计划，提出通过企业微信公众号推广员工健身活动。在距离工作区域较近的休闲区域放置健身器械等方案，预期通过一年的努力，员工的锻炼率有所提高。请回答：工作区域较近的休闲区域放置健身器械的方式属于健康教育干预策略中的何种策略（）。",
     "options": [
       {
         "label": "A",
@@ -36559,7 +36896,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第六部分",
     "type": "单选题",
-    "stem": "某企业制定员工的健康管理计划，提出通过企业微信公众号推广员工健身活动.在距离工作区域较近的休闲区域放置健身器械和实行工间操制度等方案，以实现员工的锻炼率有所提高的目的。请回答：这个计划的目标忽略了（）。",
+    "stem": "某企业制定员工的健康管理计划，提出通过企业微信公众号推广员工健身活动。在距离工作区域较近的休闲区域放置健身器械和实行工间操制度等方案，以实现员工的锻炼率有所提高的目的。请回答：这个计划的目标忽略了（）。",
     "options": [
       {
         "label": "A",
@@ -36964,7 +37301,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第六部分",
     "type": "单选题",
-    "stem": "某大型国有企业在创建“无烟”企业的过程中，计划在企业各处张贴无烟标识，您是该公司负责此项目的健康管理师,请您指出对于无烟标识的设计，下列不符合要求的是（）。",
+    "stem": "某大型国有企业在创建“无烟”企业的过程中，计划在企业各处张贴无烟标识，您是该公司负责此项目的健康管理师，请您指出对于无烟标识的设计，下列不符合要求的是（）。",
     "options": [
       {
         "label": "A",
@@ -37116,10 +37453,14 @@ const QUESTION_BANK = [
       {
         "label": "D",
         "content": "少喝或不喝菜汤、面汤"
+      },
+      {
+        "label": "E",
+        "content": "使用含钾的烹调用盐"
       }
     ],
-    "answer": "D",
-    "explanation": "减少钠盐摄入措施包括减少味精酱油等调味品用量、少食咸菜火腿等加工食品、减少烹调用盐并用盐勺、少喝或不喝菜汤面汤等，四项均为减盐措施，故D“少喝菜汤面汤不属于”不成立。"
+    "answer": "E",
+    "explanation": "减少钠盐摄入措施包括减少味精酱油等调味品用量、少食咸菜火腿等加工食品、减少烹调用盐并用盐勺、少喝或不喝菜汤面汤等；\"使用含钾的烹调用盐\"不属于减少钠盐摄入的措施。选E。"
   },
   {
     "id": 1275,
@@ -37388,7 +37729,7 @@ const QUESTION_BANK = [
         "content": "3月"
       }
     ],
-    "answer": "C",
+    "answer": "A",
     "explanation": "黑板报、无玻璃橱窗宣传栏最佳更换周期为1周。选A。"
   },
   {
@@ -37990,7 +38331,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第七部分",
     "type": "单选题",
-    "stem": "要求执行控烟计划一年后，80%的青少年能说出三项以上吸烟对健康的危害,这是计划的（）。",
+    "stem": "要求执行控烟计划一年后，80%的青少年能说出三项以上吸烟对健康的危害，这是计划的（）。",
     "options": [
       {
         "label": "A",
@@ -38044,7 +38385,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第七部分",
     "type": "单选题",
-    "stem": "奶类营养丰富,下列哪一种不是奶类主要含有的营养素（）。",
+    "stem": "奶类营养丰富，下列哪一种不是奶类主要含有的营养素（）。",
     "options": [
       {
         "label": "A",
@@ -38287,7 +38628,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第七部分",
     "type": "单选题",
-    "stem": "对于成年人来说，轻体力劳劫者每天能量摄入量男性为（）千卡,女性为（）千卡。",
+    "stem": "对于成年人来说，轻体力劳劫者每天能量摄入量男性为（）千卡，女性为（）千卡。",
     "options": [
       {
         "label": "A",
@@ -38314,7 +38655,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第七部分",
     "type": "单选题",
-    "stem": "成人如饮酒，男性一天饮用酒的酒精量不超过（）克,女性不超过（）克。",
+    "stem": "成人如饮酒，男性一天饮用酒的酒精量不超过（）克，女性不超过（）克。",
     "options": [
       {
         "label": "A",
@@ -38924,7 +39265,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "D",
-        "content": "健康管理师对客户说“哦!"
+        "content": "健康管理师对客户说“哦！"
       }
     ],
     "answer": "D",
@@ -38989,7 +39330,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第七部分",
     "type": "单选题",
-    "stem": "张医师:那您的体重现在是多少千克了？这属于（）。",
+    "stem": "张医师：那您的体重现在是多少千克了？这属于（）。",
     "options": [
       {
         "label": "A",
@@ -39008,8 +39349,8 @@ const QUESTION_BANK = [
         "content": "试探型问题"
       }
     ],
-    "answer": "B",
-    "explanation": "“您的体重现在是多少千克了？”要求对方回答具体的数值，属封闭型问题（收集简明事实性资料），而非开放型问题。题库给B“开放型问题”错误。"
+    "answer": "A",
+    "explanation": "“您的体重现在是多少千克了？”要求对方回答具体的数值，属封闭型问题（收集简明事实性资料），而非开放型问题。选A。"
   },
   {
     "id": 1345,
@@ -39151,7 +39492,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第七部分",
     "type": "单选题",
-    "stem": "“大婶您好!您找我有什么事吗？”属于（）。",
+    "stem": "“大婶您好！您找我有什么事吗？”属于（）。",
     "options": [
       {
         "label": "A",
@@ -39421,7 +39762,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第七部分",
     "type": "单选题",
-    "stem": "下列中由专业卫生机构编写、印刷,其形式类似于书籍，以文字为主，信息量大、内容丰富、系统完整的传播材料是（）。",
+    "stem": "下列中由专业卫生机构编写、印刷，其形式类似于书籍，以文字为主，信息量大、内容丰富、系统完整的传播材料是（）。",
     "options": [
       {
         "label": "A",
@@ -39583,7 +39924,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第七部分",
     "type": "单选题",
-    "stem": "关于提问过程中的技巧,表述不正确的是（）。",
+    "stem": "关于提问过程中的技巧，表述不正确的是（）。",
     "options": [
       {
         "label": "A",
@@ -41042,7 +41383,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "运动频率和时长(次/周,分钟/次)"
+        "content": "运动频率和时长(次/周，分钟/次)"
       },
       {
         "label": "D",
@@ -41713,7 +42054,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第八部分",
     "type": "多选题",
-    "stem": "黄女士，55岁，汉族，四川人，高中文化，原某厂职工现退休在家。身高154厘米，体重62公斤，血压125/80mmHg，总胆固醇190mg/dl，餐后两小时血糖9.1mmol/L，空腹血糖6.3mmol/L,爱吃油腻和辛辣食品，很少吃蔬菜水果,爱打麻将，爱看电视与录像，几乎没有参加过体育锻炼。父母及兄妹无高血压及糖尿病史。如果进一步收集黄女士的健康危险因素资料，可采用的收集方法有（）。",
+    "stem": "黄女士，55岁，汉族，四川人，高中文化，原某厂职工现退休在家。身高154厘米，体重62公斤，血压125/80mmHg，总胆固醇190mg/dl，餐后两小时血糖9.1mmol/L，空腹血糖6.3mmol/L,爱吃油腻和辛辣食品，很少吃蔬菜水果，爱打麻将，爱看电视与录像，几乎没有参加过体育锻炼。父母及兄妹无高血压及糖尿病史。如果进一步收集黄女士的健康危险因素资料，可采用的收集方法有（）。",
     "options": [
       {
         "label": "A",
@@ -41950,9 +42291,9 @@ const QUESTION_BANK = [
     "answer": [
       "A",
       "B",
-      "C"
+      "D"
     ],
-    "explanation": "客户身高164cm、体重80kg：腰围87cm≥85属中心性肥胖（A对）；BMI=80/1.64²≈29.7≥28属肥胖（B对、E错）；C“BMI28.0超重”数值错误（应为29.7且28.0属肥胖）。标准体重164-105=59kg，实际80kg超35%属肥胖（D对）。题库答案ABC漏D、多C，应为ABD。"
+    "explanation": "客户身高164cm、体重80kg：腰围87cm≥85属中心性肥胖（A对）；BMI=80/1.64²≈29.7≥28属肥胖（B对、E错）；C\"BMI28.0超重\"数值错误（应为29.7且28.0属肥胖）。标准体重164-105=59kg，实际80kg超35%属肥胖（D对）。选ABD。"
   },
   {
     "id": 1437,
@@ -42102,7 +42443,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第八部分",
     "type": "多选题",
-    "stem": "健康管理师为客户测量腰围时,注意的事项包括()。",
+    "stem": "健康管理师为客户测量腰围时，注意的事项包括()。",
     "options": [
       {
         "label": "A",
@@ -42171,7 +42512,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第八部分",
     "type": "多选题",
-    "stem": "江女士，41岁，近日感到双腿关节疼痛，行走，提重物和在上楼时疼痛加剧。因多日未愈而来到某社区卫生服务中心。现在就膝盖疼痛问题来就诊。咨询如何治疗和调理。根据检查结果。医生认为江女士的膝关节没有太大问题。开具聚乙酰氨基酚类止痛药和一些氨基葡萄糖类保护关节的药物,嘱咐她注意休息,不要过多的走路,不要让关节疼，承受过重的压力,过段儿时间复诊。作为一名健康管理师,在为江女士进行了一般项目检查时需要获得其相关健康信息。若使用杠杆称测量江女士的体重正确要求包括()。",
+    "stem": "江女士，41岁，近日感到双腿关节疼痛，行走，提重物和在上楼时疼痛加剧。因多日未愈而来到某社区卫生服务中心。现在就膝盖疼痛问题来就诊。咨询如何治疗和调理。根据检查结果。医生认为江女士的膝关节没有太大问题。开具聚乙酰氨基酚类止痛药和一些氨基葡萄糖类保护关节的药物，嘱咐她注意休息，不要过多的走路，不要让关节疼，承受过重的压力，过段儿时间复诊。作为一名健康管理师，在为江女士进行了一般项目检查时需要获得其相关健康信息。若使用杠杆称测量江女士的体重正确要求包括()。",
     "options": [
       {
         "label": "A",
@@ -42205,7 +42546,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第八部分",
     "type": "多选题",
-    "stem": "江女士，41岁，近日感到双腿关节疼痛，行走，提重物和在上楼时疼痛加剧。因多日未愈而来到某社区卫生服务中心。现在就膝盖疼痛问题来就诊。咨询如何治疗和调理。根据检查结果。医生认为江女士的膝关节没有太大问题。开具聚乙酰氨基酚类止痛药和一些氨基葡萄糖类保护关节的药物,嘱咐她注意休息,不要过多的走路,不要让关节疼，承受过重的压力,过段儿时间复诊。作为一名健康管理师,在为江女士进行了一般项目检查时需要获得其相关健康信息。经过测量，江女士身高164cm，体重80kg，腰围84cm。对于江女士体型判定结果正确的是()。",
+    "stem": "江女士，41岁，近日感到双腿关节疼痛，行走，提重物和在上楼时疼痛加剧。因多日未愈而来到某社区卫生服务中心。现在就膝盖疼痛问题来就诊。咨询如何治疗和调理。根据检查结果。医生认为江女士的膝关节没有太大问题。开具聚乙酰氨基酚类止痛药和一些氨基葡萄糖类保护关节的药物，嘱咐她注意休息，不要过多的走路，不要让关节疼，承受过重的压力，过段儿时间复诊。作为一名健康管理师，在为江女士进行了一般项目检查时需要获得其相关健康信息。经过测量，江女士身高164cm，体重80kg，腰围84cm。对于江女士体型判定结果正确的是()。",
     "options": [
       {
         "label": "A",
@@ -42310,7 +42651,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第八部分",
     "type": "多选题",
-    "stem": "健康档案中所记录的不合逻辑的信息,识别方法包括（）。",
+    "stem": "健康档案中所记录的不合逻辑的信息，识别方法包括（）。",
     "options": [
       {
         "label": "A",
@@ -43067,7 +43408,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第八部分",
     "type": "多选题",
-    "stem": "黄先生，54岁，汉族，文职人员，身高175cm，体重80kg，腰围92cm，血压155/88mmHg，血清总胆固醇5.03mmol/L。工作压力大，经常加班，很少参加体育活动，经常饮酒(平均每日饮白酒30-40ml)，空腹血糖6.4mmol/L，餐后2小时血糖9.1mmol/L，父母有高血压病。根据以上情况,他需要考虑的疾病风险是()。",
+    "stem": "黄先生，54岁，汉族，文职人员，身高175cm，体重80kg，腰围92cm，血压155/88mmHg，血清总胆固醇5.03mmol/L。工作压力大，经常加班，很少参加体育活动，经常饮酒(平均每日饮白酒30-40ml)，空腹血糖6.4mmol/L，餐后2小时血糖9.1mmol/L，父母有高血压病。根据以上情况，他需要考虑的疾病风险是()。",
     "options": [
       {
         "label": "A",
@@ -43459,7 +43800,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第八部分",
     "type": "多选题",
-    "stem": "下列各选项中,不属于健康风险评估的是()。",
+    "stem": "下列各选项中，不属于健康风险评估的是()。",
     "options": [
       {
         "label": "A",
@@ -43493,7 +43834,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第八部分",
     "type": "多选题",
-    "stem": "请您选择,进行缺血性心血管疾病风险评估需要考虑下列哪些因素()。",
+    "stem": "请您选择，进行缺血性心血管疾病风险评估需要考虑下列哪些因素()。",
     "options": [
       {
         "label": "A",
@@ -43529,7 +43870,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第八部分",
     "type": "多选题",
-    "stem": "黄女士，55岁，汉族，四川人，高中文化，原某厂职工现退休在家。身高154厘米，体重62公斤，血压125/80mmHg，总胆固醇190mg/dl，餐后两小时血糖9.1mmol/L，空腹血糖6.3mmol/L,爱吃油腻和辛辣食品，很少吃蔬菜水果,爱打麻将，爱看电视与录像，几乎没有参加过体育锻炼。父母及兄妹无高血压及糖尿病史。要对黄女士进行健康危险因素评价，正确的步骤是（）。",
+    "stem": "黄女士，55岁，汉族，四川人，高中文化，原某厂职工现退休在家。身高154厘米，体重62公斤，血压125/80mmHg，总胆固醇190mg/dl，餐后两小时血糖9.1mmol/L，空腹血糖6.3mmol/L,爱吃油腻和辛辣食品，很少吃蔬菜水果，爱打麻将，爱看电视与录像，几乎没有参加过体育锻炼。父母及兄妹无高血压及糖尿病史。要对黄女士进行健康危险因素评价，正确的步骤是（）。",
     "options": [
       {
         "label": "A",
@@ -44216,7 +44557,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第八部分",
     "type": "多选题",
-    "stem": "作为导致成瘾行为的内因,“易成瘾者”具有哪些人格特征（）。",
+    "stem": "作为导致成瘾行为的内因，“易成瘾者”具有哪些人格特征（）。",
     "options": [
       {
         "label": "A",
@@ -44325,7 +44666,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "请选择下列各项中,属于健康风险评估的是（）。",
+    "stem": "请选择下列各项中，属于健康风险评估的是（）。",
     "options": [
       {
         "label": "A",
@@ -44825,7 +45166,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "您作为一名在社区健康管理中心工作，经验丰富的健康管理师三级专业人员，应安排一定的空间和购置必需的档案保管设施设备保证健康信息存档文件,能（）。",
+    "stem": "您作为一名在社区健康管理中心工作，经验丰富的健康管理师三级专业人员，应安排一定的空间和购置必需的档案保管设施设备保证健康信息存档文件，能（）。",
     "options": [
       {
         "label": "A",
@@ -45898,7 +46239,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "黄女士，55岁，汉族，四川人，高中文化，原某厂职工现退休在家。身高154厘米，体重62公斤，血压125/80mmHg，总胆固醇190mg/dl，餐后两小时血糖9.1mmol/L，空腹血糖6.3mmol/L,爱吃油腻和辛辣食品，很少吃蔬菜水果,爱打麻将，爱看电视与录像，几乎没有参加过体育锻炼。父母及兄妹无高血压及糖尿病史。如已对黄女士采取了健康干预措施，那么评价该措施的效果应包括（）。",
+    "stem": "黄女士，55岁，汉族，四川人，高中文化，原某厂职工现退休在家。身高154厘米，体重62公斤，血压125/80mmHg，总胆固醇190mg/dl，餐后两小时血糖9.1mmol/L，空腹血糖6.3mmol/L,爱吃油腻和辛辣食品，很少吃蔬菜水果，爱打麻将，爱看电视与录像，几乎没有参加过体育锻炼。父母及兄妹无高血压及糖尿病史。如已对黄女士采取了健康干预措施，那么评价该措施的效果应包括（）。",
     "options": [
       {
         "label": "A",
@@ -46507,7 +46848,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "某企业在创建“无烟”企业的过程提出在企业各处张贴无烟标识的方案。您是该企业的健康管理师,负责无烟标识的设计，请选择无烟标识应符合哪些要求（）。",
+    "stem": "某企业在创建“无烟”企业的过程提出在企业各处张贴无烟标识的方案。您是该企业的健康管理师，负责无烟标识的设计，请选择无烟标识应符合哪些要求（）。",
     "options": [
       {
         "label": "A",
@@ -47366,7 +47707,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "尤先生，32岁，是合资企业的部门负责人，每天工作繁忙且压力大，一日三餐不规律，早餐经常不吃，中晚餐应酬多，经常饮酒，每天抽烟一包，工作时间以静坐为主，平时身体活动很少；最近体检发现，心电图异常，显示心肌缺血，血压偏高，B超发现中度脂肪肝和胆结石，生化检查发现转氨酶增高，您作为健康管理师，请为尤先生解答以下问题:针对尤先生存在的健康问题提出的指导建议可以包括()。",
+    "stem": "尤先生，32岁，是合资企业的部门负责人，每天工作繁忙且压力大，一日三餐不规律，早餐经常不吃，中晚餐应酬多，经常饮酒，每天抽烟一包，工作时间以静坐为主，平时身体活动很少；最近体检发现，心电图异常，显示心肌缺血，血压偏高，B超发现中度脂肪肝和胆结石，生化检查发现转氨酶增高，您作为健康管理师，请为尤先生解答以下问题：针对尤先生存在的健康问题提出的指导建议可以包括()。",
     "options": [
       {
         "label": "A",
@@ -47438,7 +47779,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "尤先生，32岁，是合资企业的部门负责人，每天工作繁忙且压力大，一日三餐不规律，早餐经常不吃，中晚餐应酬多，经常饮酒，每天抽烟一包，工作时间以静坐为主，平时身体活动很少；最近体检发现，心电图异常，显示心肌缺血，血压偏高，B超发现中度脂肪肝和胆结石，生化检查发现转氨酶增高，您作为健康管理师，请为尤先生解答以下问题:可以为尤先生选择的运动内容是()。",
+    "stem": "尤先生，32岁，是合资企业的部门负责人，每天工作繁忙且压力大，一日三餐不规律，早餐经常不吃，中晚餐应酬多，经常饮酒，每天抽烟一包，工作时间以静坐为主，平时身体活动很少；最近体检发现，心电图异常，显示心肌缺血，血压偏高，B超发现中度脂肪肝和胆结石，生化检查发现转氨酶增高，您作为健康管理师，请为尤先生解答以下问题：可以为尤先生选择的运动内容是()。",
     "options": [
       {
         "label": "A",
@@ -47474,7 +47815,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "某市参与了中国/联合国儿童基金会学校预防吸烟项目，采取了为学校领导举办国家级师资培训，由省健康教育所专业人员对健康教育课教师和班主任进行烟草危害、控烟方法等知识的培训;学校举办各种控烟活动以对学生进行多种形式的健康教育，并尽量发动学生学以致用，以学生为传播源继续传播控烟知识;学校与家长沟通，请家长约束子女的吸烟行为，并联系街道、居委会、工商等部门，劝止小商贩向中学生售烟等多种干预措施。经过3年的健康教育和健康促进，项目进行终期评估，取得了显著的成效。请回答群体烟草干预措施包括()。",
+    "stem": "某市参与了中国/联合国儿童基金会学校预防吸烟项目，采取了为学校领导举办国家级师资培训，由省健康教育所专业人员对健康教育课教师和班主任进行烟草危害、控烟方法等知识的培训；学校举办各种控烟活动以对学生进行多种形式的健康教育，并尽量发动学生学以致用，以学生为传播源继续传播控烟知识；学校与家长沟通，请家长约束子女的吸烟行为，并联系街道、居委会、工商等部门，劝止小商贩向中学生售烟等多种干预措施。经过3年的健康教育和健康促进，项目进行终期评估，取得了显著的成效。请回答群体烟草干预措施包括()。",
     "options": [
       {
         "label": "A",
@@ -48000,7 +48341,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "E",
-        "content": "充满自信,富有组织和领导才能"
+        "content": "充满自信，富有组织和领导才能"
       }
     ],
     "answer": [
@@ -48093,11 +48434,11 @@ const QUESTION_BANK = [
     "options": [
       {
         "label": "A",
-        "content": "培养清淡饮食习惯,少吃高盐和油炸食品"
+        "content": "培养清淡饮食习惯，少吃高盐和油炸食品"
       },
       {
         "label": "B",
-        "content": "成人每天食盐少于5克,每天烹调油25—30克"
+        "content": "成人每天食盐少于5克，每天烹调油25—30克"
       },
       {
         "label": "C",
@@ -48105,11 +48446,11 @@ const QUESTION_BANK = [
       },
       {
         "label": "D",
-        "content": "控制添加糖的摄入量,每天摄入不超过50克,最好控制在约30克以下"
+        "content": "控制添加糖的摄入量，每天摄入不超过50克，最好控制在约30克以下"
       },
       {
         "label": "E",
-        "content": "成人如饮洒，男性一天饮用酒的酒精量不超过50克,女性不超过25克。"
+        "content": "成人如饮洒，男性一天饮用酒的酒精量不超过50克，女性不超过25克。"
       }
     ],
     "answer": [
@@ -48123,11 +48464,11 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "关于动物性食物,说法正确的是（）。",
+    "stem": "关于动物性食物，说法正确的是（）。",
     "options": [
       {
         "label": "A",
-        "content": "鱼类，脂肪含量相对较低,且含有较多的不饱和脂肪酸"
+        "content": "鱼类，脂肪含量相对较低，且含有较多的不饱和脂肪酸"
       },
       {
         "label": "B",
@@ -48192,7 +48533,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "食物种类多样化,下列说法正确的是（）。",
+    "stem": "食物种类多样化，下列说法正确的是（）。",
     "options": [
       {
         "label": "A",
@@ -48204,7 +48545,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "平均每天摄入12种以上食物,每周25种以上"
+        "content": "平均每天摄入12种以上食物，每周25种以上"
       },
       {
         "label": "D",
@@ -48245,7 +48586,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "D",
-        "content": "书写规范，字迹清晰，不写错别字、繁体字、异体字;尽量不要竖写，如果要竖写，应自右而左，标题居右。"
+        "content": "书写规范，字迹清晰，不写错别字、繁体字、异体字；尽量不要竖写，如果要竖写，应自右而左，标题居右。"
       },
       {
         "label": "E",
@@ -48866,7 +49207,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "对于知识性问题或决策性问题,反馈时应注意（）。",
+    "stem": "对于知识性问题或决策性问题，反馈时应注意（）。",
     "options": [
       {
         "label": "A",
@@ -48878,7 +49219,7 @@ const QUESTION_BANK = [
       },
       {
         "label": "C",
-        "content": "搞清对方问题的核心,不要答非所向"
+        "content": "搞清对方问题的核心，不要答非所向"
       },
       {
         "label": "D",
@@ -48901,7 +49242,7 @@ const QUESTION_BANK = [
     "module": "实操",
     "section": "第九部分",
     "type": "多选题",
-    "stem": "人际沟通中,说话的技巧包括（）。",
+    "stem": "人际沟通中，说话的技巧包括（）。",
     "options": [
       {
         "label": "A",
@@ -49326,6 +49667,8 @@ const Storage = {
 const AppState = {
     currentPage: 'home',
     quizMode: null, // sequential, random, exam, review
+    quizModule: 'theory', // theory, practice - 当前练习的模块筛选
+    fromWrongQuestion: false, // 是否从错题集进入的答题（不显示模块切换）
     quizQuestions: [],
     currentQuestionIndex: 0,
     selectedAnswers: {}, // { questionId: answer }
@@ -49458,6 +49801,101 @@ const AppState = {
 
     hasUnfinishedExam() {
         return Storage.get('exam_state', null) !== null;
+    },
+
+    // ==================== 练习进度保存（顺序练习/背题模式） ====================
+    saveQuizProgress(showToast = false) {
+        // 只保存顺序练习和背题模式的进度
+        if (this.quizMode !== 'sequential' && this.quizMode !== 'review') return;
+
+        const state = {
+            mode: this.quizMode,
+            quizModule: this.quizModule,
+            questionIds: this.quizQuestions.map(q => q.id),
+            currentIndex: this.currentQuestionIndex,
+            selectedAnswers: this.selectedAnswers,
+            answeredIds: Array.from(this.answeredQuestions),
+            markedIds: Array.from(this.markedQuestions),
+            lastSaveTime: Date.now()
+        };
+        // 使用包含模块的键，每个模块独立保存进度
+        Storage.set('quiz_progress_' + this.quizMode + '_' + this.quizModule, state);
+
+        if (showToast) {
+            showToast('进度已保存，下次进入可继续学习', 'success');
+        }
+    },
+
+    loadQuizProgress(mode, module = 'theory') {
+        const state = Storage.get('quiz_progress_' + mode + '_' + module, null);
+        if (!state) return false;
+
+        // 验证题目是否还存在
+        const questions = state.questionIds.map(id => this.getQuestionById(id)).filter(Boolean);
+        if (questions.length === 0) {
+            this.clearQuizProgress(mode, module);
+            return false;
+        }
+
+        this.quizMode = mode;
+        this.quizModule = module;
+        this.quizQuestions = questions;
+        this.currentQuestionIndex = Math.min(state.currentIndex, questions.length - 1);
+        this.selectedAnswers = state.selectedAnswers || {};
+        this.answeredQuestions = new Set(state.answeredIds || []);
+        this.markedQuestions = new Set(state.markedIds || []);
+        this.studyStartTime = Date.now();
+        return true;
+    },
+
+    clearQuizProgress(mode, module = null) {
+        if (module) {
+            // 清除指定模块的进度
+            Storage.remove('quiz_progress_' + mode + '_' + module);
+        } else {
+            // 清除所有模块的进度
+            Storage.remove('quiz_progress_' + mode + '_theory');
+            Storage.remove('quiz_progress_' + mode + '_practice');
+        }
+    },
+
+    hasUnfinishedQuiz(mode, module = 'theory') {
+        const state = Storage.get('quiz_progress_' + mode + '_' + module, null);
+        if (!state) return false;
+        // 如果已经完成所有题目，不算未完成
+        return state.currentIndex < (state.questionIds ? state.questionIds.length - 1 : 0);
+    },
+
+    getQuizProgressInfo(mode, module = 'theory') {
+        const state = Storage.get('quiz_progress_' + mode + '_' + module, null);
+        if (!state) return null;
+        return {
+            currentIndex: state.currentIndex,
+            total: state.questionIds ? state.questionIds.length : 0,
+            answeredCount: state.answeredIds ? state.answeredIds.length : 0,
+            lastSaveTime: state.lastSaveTime,
+            quizModule: state.quizModule || module
+        };
+    },
+
+    // ==================== 标记题目持久化 ====================
+    getMarkedIds() {
+        return Storage.get('marked_ids', []);
+    },
+    addMarkedId(id) {
+        const ids = this.getMarkedIds();
+        if (!ids.includes(id)) {
+            ids.push(id);
+            Storage.set('marked_ids', ids);
+        }
+    },
+    removeMarkedId(id) {
+        const ids = this.getMarkedIds().filter(i => i !== id);
+        Storage.set('marked_ids', ids);
+    },
+    loadMarkedQuestions() {
+        const ids = this.getMarkedIds();
+        this.markedQuestions = new Set(ids);
     }
 };
 
@@ -49580,6 +50018,7 @@ function closeSidebar() {
 }
 
 // ==================== 首页渲染 ====================
+// 渲染继续学习区域
 function renderHomePage() {
     const allQuestions = AppState.getAllQuestions();
     const answeredIds = AppState.getAnsweredIds();
@@ -49804,8 +50243,28 @@ function renderHomePage() {
 }
 
 // ==================== 答题功能 ====================
-function startQuiz(mode, questionIds = null) {
+function startQuiz(mode, questionIds = null, resumeProgress = true, module = 'theory') {
+    // 顺序练习和背题模式：检查是否有保存的进度，如果有则自动恢复
+    if (resumeProgress && (mode === 'sequential' || mode === 'review') && !questionIds) {
+        if (AppState.hasUnfinishedQuiz(mode, module)) {
+            const info = AppState.getQuizProgressInfo(mode, module);
+            if (info && info.total > 0) {
+                // 自动恢复进度
+                if (AppState.loadQuizProgress(mode, module)) {
+                    navigateTo('quiz');
+                    renderQuizPage();
+                    const modeNames = { sequential: '顺序练习', review: '背题模式' };
+                    const moduleNames = { theory: '理论', practice: '实操' };
+                    showToast(`已恢复${moduleNames[module]}${modeNames[mode]}进度：第${info.currentIndex + 1}/${info.total}题`, 'success');
+                    return;
+                }
+            }
+        }
+    }
+
     AppState.quizMode = mode;
+    AppState.quizModule = module;
+    AppState.fromWrongQuestion = !!questionIds; // 从错题集等特定来源进入时，不显示模块切换
     AppState.currentQuestionIndex = 0;
     AppState.selectedAnswers = {};
     AppState.answeredQuestions = new Set();
@@ -49816,6 +50275,15 @@ function startQuiz(mode, questionIds = null) {
         questions = questionIds.map(id => AppState.getQuestionById(id)).filter(Boolean);
     } else {
         questions = AppState.getAllQuestions();
+        // 根据模块筛选题目（只支持理论和实操）
+        if (module === 'theory') {
+            questions = questions.filter(q => q.module === '理论');
+        } else if (module === 'practice') {
+            questions = questions.filter(q => q.module === '实操');
+        } else {
+            // 默认使用理论
+            questions = questions.filter(q => q.module === '理论');
+        }
     }
 
     if (mode === 'random') {
@@ -49823,7 +50291,75 @@ function startQuiz(mode, questionIds = null) {
     }
 
     AppState.quizQuestions = questions;
+
+    // 清除之前的进度（新开始的练习）
+    if (mode === 'sequential' || mode === 'review') {
+        AppState.clearQuizProgress(mode);
+    }
+
     navigateTo('quiz');
+    renderQuizPage();
+}
+
+// 切换练习模块（理论/实操/全部）
+// 切换练习模块（理论/实操）
+function switchQuizModule(module) {
+    if (AppState.quizMode === 'exam') {
+        showToast('模拟考试模式不支持切换模块', 'warning');
+        return;
+    }
+
+    // 只支持理论和实操
+    if (module !== 'theory' && module !== 'practice') {
+        module = 'theory';
+    }
+
+    // 如果切换到相同模块，不做任何操作
+    if (AppState.quizModule === module) {
+        return;
+    }
+
+    // 保存当前模块的进度（顺序练习和背题模式）
+    if (AppState.quizMode === 'sequential' || AppState.quizMode === 'review') {
+        AppState.saveQuizProgress();
+    }
+
+    AppState.quizModule = module;
+
+    // 尝试加载目标模块的进度
+    let hasProgress = false;
+    if (AppState.quizMode === 'sequential' || AppState.quizMode === 'review') {
+        hasProgress = AppState.loadQuizProgress(AppState.quizMode, module);
+    }
+
+    if (!hasProgress) {
+        // 如果没有保存的进度，重新开始
+        AppState.currentQuestionIndex = 0;
+        AppState.selectedAnswers = {};
+        AppState.answeredQuestions = new Set();
+
+        let questions = AppState.getAllQuestions();
+        if (module === 'theory') {
+            questions = questions.filter(q => q.module === '理论');
+        } else {
+            questions = questions.filter(q => q.module === '实操');
+        }
+
+        if (AppState.quizMode === 'random') {
+            questions = shuffleArray(questions);
+        }
+
+        AppState.quizQuestions = questions;
+    }
+
+    const moduleNames = { theory: '理论部分', practice: '实操部分' };
+    if (hasProgress) {
+        const info = AppState.getQuizProgressInfo(AppState.quizMode, module);
+        showToast(`已切换到${moduleNames[module]}，恢复到第${info.currentIndex + 1}/${info.total}题`, 'success');
+    } else {
+        showToast(`已切换到${moduleNames[module]}，共${AppState.quizQuestions.length}题`, 'success');
+    }
+
     renderQuizPage();
 }
 
@@ -49970,6 +50506,12 @@ function renderQuizPage() {
                 返回
             </button>
             <span class="quiz-mode-tag">${modeNames[AppState.quizMode] || '练习'}</span>
+            ${(!isExamMode && !AppState.fromWrongQuestion) ? `
+            <div class="quiz-module-switch">
+                <button class="module-btn ${AppState.quizModule === 'theory' ? 'active' : ''}" onclick="switchQuizModule('theory')">理论</button>
+                <button class="module-btn ${AppState.quizModule === 'practice' ? 'active' : ''}" onclick="switchQuizModule('practice')">实操</button>
+            </div>
+            ` : ''}
             ${timerHtml}
             ${paperViewBtn}
             <button class="quiz-redo" onclick="redoQuestion()">
@@ -50033,6 +50575,17 @@ function renderQuizPage() {
                             <polyline points="12 5 19 12 12 19"/>
                         </svg>
                     </button>
+                ` : ((AppState.quizMode === 'sequential' || AppState.quizMode === 'random') && !isReviewMode) ? `
+                    <button class="btn-primary quiz-nav-btn" onclick="submitAnswer()" ${(!selectedAnswer || isAnswered) ? 'disabled style="opacity:0.5;cursor:not-allowed"' : ''}>
+                        确定
+                    </button>
+                    <button class="btn-primary quiz-nav-btn" onclick="nextQuestion()">
+                        下一题
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </button>
                 ` : (!isAnswered && !isReviewMode) ? `
                     <button class="btn-primary" onclick="submitAnswer()" ${!selectedAnswer ? 'disabled style="opacity:0.5;cursor:not-allowed"' : ''}>
                         确定
@@ -50080,6 +50633,9 @@ function selectOption(label) {
         AppState.saveExamState();
     }
 
+    // 顺序练习和背题模式：保存进度
+    AppState.saveQuizProgress();
+
     renderQuizPage();
 }
 
@@ -50113,16 +50669,18 @@ function submitAnswer() {
     };
     Storage.set('answer_history', answerHistory);
 
+    // 答错自动添加到错题集，答对不自动清除（需手动清除）
     if (!isCorrect) {
         AppState.addWrongId(question.id);
-    } else {
-        AppState.removeWrongId(question.id);
     }
 
     // 更新学习统计
     const studySeconds = Math.floor((Date.now() - AppState.studyStartTime) / 1000);
     AppState.updateStudyStats(studySeconds, isCorrect ? 1 : 0, 1);
     AppState.studyStartTime = Date.now();
+
+    // 顺序练习和背题模式：保存进度
+    AppState.saveQuizProgress();
 
     renderQuizPage();
 }
@@ -50134,6 +50692,8 @@ function nextQuestion() {
         if (AppState.quizMode === 'exam') {
             AppState.saveExamState();
         }
+        // 顺序练习和背题模式：保存进度
+        AppState.saveQuizProgress();
         renderQuizPage();
         window.scrollTo(0, 0);
     } else {
@@ -50149,16 +50709,55 @@ function prevQuestion() {
         if (AppState.quizMode === 'exam') {
             AppState.saveExamState();
         }
+        // 顺序练习和背题模式：保存进度
+        AppState.saveQuizProgress();
         renderQuizPage();
         window.scrollTo(0, 0);
     }
 }
 
 function redoQuestion() {
-    const question = AppState.quizQuestions[AppState.currentQuestionIndex];
-    AppState.answeredQuestions.delete(question.id);
-    delete AppState.selectedAnswers[question.id];
-    renderQuizPage();
+    // 顺序练习和背题模式：重做当前模块的所有题目，从头开始
+    if (AppState.quizMode === 'sequential' || AppState.quizMode === 'review') {
+        if (confirm('确定要重新开始吗？所有答题进度将被清除。')) {
+            // 根据当前模块重新筛选题目
+            let questions = AppState.getAllQuestions();
+            if (AppState.quizModule === 'theory') {
+                questions = questions.filter(q => q.module === '理论');
+            } else if (AppState.quizModule === 'practice') {
+                questions = questions.filter(q => q.module === '实操');
+            } else {
+                // 默认使用理论
+                questions = questions.filter(q => q.module === '理论');
+            }
+            
+            // 随机练习模式打乱顺序
+            if (AppState.quizMode === 'random') {
+                questions = shuffleArray(questions);
+            }
+            
+            AppState.quizQuestions = questions;
+            
+            // 清除所有答题状态
+            AppState.currentQuestionIndex = 0;
+            AppState.selectedAnswers = {};
+            AppState.answeredQuestions = new Set();
+            AppState.studyStartTime = Date.now();
+            
+            // 清除保存的进度
+            AppState.clearQuizProgress(AppState.quizMode, AppState.quizModule);
+            
+            renderQuizPage();
+            const moduleNames = { theory: '理论', practice: '实操' };
+            showToast(`已重新开始${moduleNames[AppState.quizModule] || '理论'}部分，共${questions.length}题`, 'success');
+        }
+    } else {
+        // 其他模式：只重做当前题目
+        const question = AppState.quizQuestions[AppState.currentQuestionIndex];
+        AppState.answeredQuestions.delete(question.id);
+        delete AppState.selectedAnswers[question.id];
+        renderQuizPage();
+    }
 }
 
 function toggleFavoriteQuestion(id) {
@@ -50170,10 +50769,15 @@ function toggleFavoriteQuestion(id) {
 function toggleMarkQuestion(id) {
     if (AppState.markedQuestions.has(id)) {
         AppState.markedQuestions.delete(id);
+        AppState.removeMarkedId(id);
+        showToast('已取消标记', 'success');
     } else {
         AppState.markedQuestions.add(id);
+        AppState.addMarkedId(id);
         showToast('已标记此题', 'success');
     }
+    // 保存进度
+    AppState.saveQuizProgress();
     renderQuizPage();
 }
 
@@ -50183,11 +50787,18 @@ function confirmExitQuiz() {
             finishExam();
         }
     } else {
+        // 顺序练习和背题模式：退出前保存进度
+        AppState.saveQuizProgress();
         navigateTo('home');
     }
 }
 
 function finishQuiz() {
+    // 完成练习时清除进度
+    if (AppState.quizMode === 'sequential' || AppState.quizMode === 'review') {
+        AppState.clearQuizProgress(AppState.quizMode, AppState.quizModule);
+    }
+
     const total = AppState.quizQuestions.length;
     const answered = AppState.answeredQuestions.size;
     let correct = 0;
@@ -50232,10 +50843,26 @@ function finishQuiz() {
             </div>
         </div>
         <div class="modal-footer">
+            ${AppState.fromWrongQuestion ? `
+            <button class="btn-secondary" onclick="closeModal();navigateTo('wrong')">返回错题集</button>
+            <button class="btn-primary" onclick="closeModal();startWrongQuiz()">再来一组</button>
+            ` : `
             <button class="btn-secondary" onclick="closeModal();navigateTo('home')">返回首页</button>
             <button class="btn-primary" onclick="closeModal();startQuiz('${AppState.quizMode}')">再来一组</button>
+            `}
         </div>
     `);
+}
+
+// 重新开始错题练习
+function startWrongQuiz() {
+    const wrongIds = AppState.getWrongIds();
+    if (wrongIds.length === 0) {
+        showToast('错题集已清空，没有错题可练习', 'warning');
+        navigateTo('wrong');
+        return;
+    }
+    startQuiz('sequential', wrongIds);
 }
 
 // ==================== 模拟考试 ====================
@@ -50658,16 +51285,31 @@ function finishExam() {
 }
 
 // ==================== 错题集页面 ====================
+let wrongPageFilter = 'all'; // all, theory, practice
+
 function renderWrongPage() {
     const wrongIds = AppState.getWrongIds();
-    const questions = wrongIds.map(id => AppState.getQuestionById(id)).filter(Boolean);
+    const allQuestions = wrongIds.map(id => AppState.getQuestionById(id)).filter(Boolean);
+    
+    // 根据筛选条件过滤
+    let questions = allQuestions;
+    if (wrongPageFilter === 'theory') {
+        questions = allQuestions.filter(q => q.module === '理论');
+    } else if (wrongPageFilter === 'practice') {
+        questions = allQuestions.filter(q => q.module === '实操');
+    }
+    
+    const filteredIds = questions.map(q => q.id);
+    
+    const theoryCount = allQuestions.filter(q => q.module === '理论').length;
+    const practiceCount = allQuestions.filter(q => q.module === '实操').length;
 
     document.getElementById('page-wrong').innerHTML = `
         <div class="page-header">
             <h2>错题集</h2>
-            <p>共 ${questions.length} 道错题，点击「移除」手动取消</p>
+            <p>共 ${allQuestions.length} 道错题（理论 ${theoryCount} 道，实操 ${practiceCount} 道），点击「移除」手动取消</p>
         </div>
-        ${questions.length === 0 ? `
+        ${allQuestions.length === 0 ? `
             <div class="empty-state">
                 <div class="empty-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -50680,23 +51322,36 @@ function renderWrongPage() {
                 <button class="btn-primary" onclick="navigateTo('home')">去练习</button>
             </div>
         ` : `
+            <div style="margin-bottom:16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <span style="font-size:14px;color:var(--text-secondary)">筛选：</span>
+                <button class="btn-secondary" style="padding:6px 16px;font-size:13px;${wrongPageFilter === 'all' ? 'background:var(--primary);color:white;border-color:var(--primary)' : ''}" onclick="wrongPageFilter='all';renderWrongPage()">全部 (${allQuestions.length})</button>
+                <button class="btn-secondary" style="padding:6px 16px;font-size:13px;${wrongPageFilter === 'theory' ? 'background:var(--primary);color:white;border-color:var(--primary)' : ''}" onclick="wrongPageFilter='theory';renderWrongPage()">理论 (${theoryCount})</button>
+                <button class="btn-secondary" style="padding:6px 16px;font-size:13px;${wrongPageFilter === 'practice' ? 'background:var(--primary);color:white;border-color:var(--primary)' : ''}" onclick="wrongPageFilter='practice';renderWrongPage()">实操 (${practiceCount})</button>
+            </div>
             <div style="margin-bottom:20px">
-                <button class="btn-primary" style="width:auto;display:inline-flex;padding:10px 24px" onclick="startQuiz('sequential', ${JSON.stringify(wrongIds)})">开始错题练习</button>
+                <button class="btn-primary" style="width:auto;display:inline-flex;padding:10px 24px" onclick="startQuiz('sequential', ${JSON.stringify(filteredIds)})" ${questions.length === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed"' : ''}>开始错题练习</button>
             </div>
-            <div class="question-list">
-                ${questions.map(q => `
-                    <div class="question-item" onclick="startQuiz('sequential', [${q.id}])">
-                        <div class="question-item-header">
-                            <div class="question-item-tags">
-                                <span class="quiz-tag">${q.type}</span>
-                                <span class="quiz-tag">${q.module}</span>
+            ${questions.length === 0 ? `
+                <div class="empty-state" style="padding:40px 20px">
+                    <h3>该分类暂无错题</h3>
+                    <p>切换到其他分类查看</p>
+                </div>
+            ` : `
+                <div class="question-list">
+                    ${questions.map(q => `
+                        <div class="question-item" onclick="startQuiz('sequential', [${q.id}])">
+                            <div class="question-item-header">
+                                <div class="question-item-tags">
+                                    <span class="quiz-tag">${q.type}</span>
+                                    <span class="quiz-tag">${q.module}</span>
+                                </div>
+                                <button class="question-item-remove" onclick="event.stopPropagation();removeWrongQuestion(${q.id})">移除</button>
                             </div>
-                            <button class="question-item-remove" onclick="event.stopPropagation();removeWrongQuestion(${q.id})">移除</button>
+                            <div class="question-item-text">${q.stem}</div>
                         </div>
-                        <div class="question-item-text">${q.stem}</div>
-                    </div>
-                `).join('')}
-            </div>
+                    `).join('')}
+                </div>
+            `}
         `}
     `;
 }
@@ -51143,6 +51798,19 @@ function renderManagePage() {
         </div>
 
         <div class="manage-filters">
+            <div class="search-box" style="display:flex;align-items:center;gap:8px;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px;flex:1;min-width:200px">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;flex-shrink:0;color:var(--text-muted)">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="搜索题目、选项、解析、答案..." oninput="filterQuestions()" style="flex:1;border:none;outline:none;background:transparent;font-size:14px;color:var(--text-primary)">
+                <button onclick="clearSearch()" id="clearSearchBtn" style="border:none;background:none;cursor:pointer;color:var(--text-muted);padding:0;display:none">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
             <select class="filter-select" id="filterModule" onchange="filterQuestions()">
                 <option value="">全部模块</option>
                 <option value="理论">理论</option>
@@ -51156,6 +51824,7 @@ function renderManagePage() {
             </select>
         </div>
 
+        <div id="searchResultInfo" style="margin-bottom:12px;color:var(--text-secondary);font-size:14px;display:none"></div>
         <div id="questionManageList">
             ${renderQuestionManageList(allQuestions)}
         </div>
@@ -51180,6 +51849,43 @@ function renderQuestionManageList(questions) {
 
     return questions.map(q => {
         const isCustom = q.id > QUESTION_BANK.length;
+        const answerStr = Array.isArray(q.answer) ? q.answer.join(', ') : q.answer;
+        
+        // 渲染选项
+        let optionsHtml = '';
+        if (q.options && q.options.length > 0) {
+            optionsHtml = '<div class="manage-question-options">';
+            q.options.forEach(opt => {
+                const isCorrect = Array.isArray(q.answer) ? q.answer.includes(opt.label) : q.answer === opt.label;
+                optionsHtml += `
+                    <div class="manage-option-item ${isCorrect ? 'correct' : ''}">
+                        <span class="manage-option-label">${opt.label}.</span>
+                        <span class="manage-option-content">${opt.content}</span>
+                        ${isCorrect ? '<span class="manage-option-correct-tag">正确答案</span>' : ''}
+                    </div>
+                `;
+            });
+            optionsHtml += '</div>';
+        }
+        
+        // 渲染解析
+        let explanationHtml = '';
+        if (q.explanation) {
+            explanationHtml = `
+                <div class="manage-question-explanation">
+                    <div class="manage-explanation-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="16" x2="12" y2="12"/>
+                            <line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                        解析
+                    </div>
+                    <div class="manage-explanation-content">${q.explanation}</div>
+                </div>
+            `;
+        }
+        
         return `
             <div class="manage-question-item">
                 <div class="manage-question-header">
@@ -51195,10 +51901,12 @@ function renderQuestionManageList(questions) {
                     </div>
                 </div>
                 <div class="manage-question-text">${q.stem}</div>
+                ${optionsHtml}
                 <div class="manage-question-meta">
-                    <span>答案：${Array.isArray(q.answer) ? q.answer.join(', ') : q.answer}</span>
+                    <span class="manage-answer">正确答案：<strong>${answerStr}</strong></span>
                     <span>ID: ${q.id}</span>
                 </div>
+                ${explanationHtml}
             </div>
         `;
     }).join('');
@@ -51207,12 +51915,42 @@ function renderQuestionManageList(questions) {
 function filterQuestions() {
     const module = document.getElementById('filterModule').value;
     const type = document.getElementById('filterType').value;
+    const searchKeyword = document.getElementById('searchInput').value.trim().toLowerCase();
     let questions = AppState.getAllQuestions();
 
     if (module) questions = questions.filter(q => q.module === module);
     if (type) questions = questions.filter(q => q.type === type);
+    
+    // 关键词搜索：题干、选项、解析、答案
+    if (searchKeyword) {
+        questions = questions.filter(q => {
+            // 搜索题干
+            if (q.stem.toLowerCase().includes(searchKeyword)) return true;
+            // 搜索选项
+            if (q.options && q.options.some(opt => opt.content.toLowerCase().includes(searchKeyword))) return true;
+            // 搜索解析
+            if (q.explanation && q.explanation.toLowerCase().includes(searchKeyword)) return true;
+            // 搜索答案
+            const answerStr = Array.isArray(q.answer) ? q.answer.join('') : q.answer;
+            if (answerStr.toLowerCase().includes(searchKeyword)) return true;
+            // 搜索章节
+            if (q.section && q.section.toLowerCase().includes(searchKeyword)) return true;
+            return false;
+        });
+    }
+    
+    // 显示/隐藏清除按钮
+    const clearBtn = document.getElementById('clearSearchBtn');
+    if (clearBtn) {
+        clearBtn.style.display = searchKeyword ? 'block' : 'none';
+    }
 
     document.getElementById('questionManageList').innerHTML = renderQuestionManageList(questions);
+}
+
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    filterQuestions();
 }
 
 function showAddQuestionModal() {
@@ -51549,6 +52287,9 @@ function closeModal() {
 
 // ==================== 初始化 ====================
 function initApp() {
+    // 加载标记题目
+    AppState.loadMarkedQuestions();
+
     // 导航点击事件
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', (e) => {
@@ -51608,6 +52349,26 @@ function initApp() {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', initApp);
+
+// 页面卸载前保存进度，确保数据不丢失
+window.addEventListener('beforeunload', function() {
+    // 保存考试状态
+    if (AppState.quizMode === 'exam' && AppState.examTimer) {
+        AppState.saveExamState();
+    }
+    // 保存练习进度
+    AppState.saveQuizProgress();
+});
+
+// 页面隐藏时保存进度（手机切换应用时）
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        if (AppState.quizMode === 'exam' && AppState.examTimer) {
+            AppState.saveExamState();
+        }
+        AppState.saveQuizProgress();
+    }
+});
 
 </script>
 <script>
